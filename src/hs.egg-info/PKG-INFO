@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: hs
+Version: 0.1.0
+Summary: Heart sound classification project for Ajou graduate ASR course
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: torch==2.5.1
+Requires-Dist: torchaudio==2.5.1
+Requires-Dist: torchvision==0.20.1
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: pyyaml
+Requires-Dist: tqdm
+Requires-Dist: librosa
+Requires-Dist: soundfile
+Requires-Dist: scipy
+Requires-Dist: jupyter
+Requires-Dist: ipykernel
+
+# hs
+
+Heart sound classification project for Ajou graduate ASR course.
+
+## Current task
+- CirCor outcome classification (Normal vs Abnormal)
+- M2D-based baseline
+
+## Setup
+```bash
+uv venv
+source .venv/bin/activate
+uv sync
+```
+
+## Data
+
+Set:
+```bash
+export CIRCOR_ROOT=~/private/ajou_grad/dataset/physionet.org
+python scripts/prepare_circor.py --circor_root $CIRCOR_ROOT --out_dir artifacts/circor
+```
+
+

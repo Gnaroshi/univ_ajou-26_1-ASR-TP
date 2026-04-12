@@ -17,8 +17,8 @@ uv sync
 
 Set:
 ```bash
-export CIRCOR_ROOT=/path/to/circor
-
+export CIRCOR_ROOT=~/private/ajou_grad/dataset/physionet.org
+python scripts/prepare_circor.py --circor_root $CIRCOR_ROOT --out_dir artifacts/circor
 ```
 
 
