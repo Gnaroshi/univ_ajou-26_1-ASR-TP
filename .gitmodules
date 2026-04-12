@@ -1,0 +1,3 @@
+[submodule "external/m2d"]
+	path = external/m2d
+	url = https://github.com/nttcslab/m2d.git
