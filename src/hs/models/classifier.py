@@ -6,7 +6,10 @@ import torch.nn as nn
 
 class ClassificationHead(nn.Module):
     def __init__(
-        self, in_dim: int, hidden_dim: int = 512, num_classes: int = 2
+        self,
+        in_dim: int,
+        hidden_dim: int = 512,
+        num_classes: int = 2,
     ) -> None:
         super().__init__()
         self.net = nn.Sequential(

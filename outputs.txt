@@ -1,0 +1,2968 @@
+  ~/private/ajou_grad/hs on   main !4 ?5                                                                                                                                                                                                                                                            ✘ INT  .venv-m2d  base with mingyujung@jbrserver1 at  17:50:14
+❯ CUDA_VISIBLE_DEVICES=0 \
+> PEFT_METHOD=none \
+OUTPUT_DIR=outputs/circor_outcome_m2d_none \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=1,967,618 / total=87,460,612 (2.2497%)
+[INFO] encoder: trainable=0 / total=85,492,994 (0.0000%)
+[INFO] m2d_inner: trainable=0 / total=85,492,994 (0.0000%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "none",
+  "config": {
+    "method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 0,
+  "targets_preview": [],
+  "stats": {
+    "total": 85492994,
+    "trainable": 0,
+    "frozen": 85492994,
+    "trainable_ratio": 0.0
+  }
+}
+[INFO] trainable parameter names preview:
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6677 train_acc=0.5906 train_f1=0.5417 train_auroc=0.6222 | valid_loss=0.6391 valid_acc=0.6307 valid_f1=0.4242 valid_auroc=0.6547
+[INFO] best checkpoint updated: valid_auroc=0.6547
+[Epoch 002] train_loss=0.6351 train_acc=0.6192 train_f1=0.5563 train_auroc=0.6602 | valid_loss=0.6465 valid_acc=0.6393 valid_f1=0.4765 valid_auroc=0.6514
+[Epoch 003] train_loss=0.6207 train_acc=0.6405 train_f1=0.5792 train_auroc=0.6765 | valid_loss=0.6921 valid_acc=0.5637 valid_f1=0.6393 valid_auroc=0.6699
+[INFO] best checkpoint updated: valid_auroc=0.6699
+[Epoch 004] train_loss=0.6227 train_acc=0.6246 train_f1=0.5613 train_auroc=0.6748 | valid_loss=0.6923 valid_acc=0.5594 valid_f1=0.5952 valid_auroc=0.6607
+[Epoch 005] train_loss=0.6034 train_acc=0.6423 train_f1=0.5736 train_auroc=0.7035 | valid_loss=0.6542 valid_acc=0.6371 valid_f1=0.4545 valid_auroc=0.6592
+[Epoch 006] train_loss=0.6002 train_acc=0.6618 train_f1=0.6130 train_auroc=0.7135 | valid_loss=0.6554 valid_acc=0.6436 valid_f1=0.4828 valid_auroc=0.6754
+[INFO] best checkpoint updated: valid_auroc=0.6754
+[Epoch 007] train_loss=0.5990 train_acc=0.6623 train_f1=0.6084 train_auroc=0.7129 | valid_loss=0.6936 valid_acc=0.5724 valid_f1=0.6102 valid_auroc=0.6588
+[Epoch 008] train_loss=0.6054 train_acc=0.6478 train_f1=0.5996 train_auroc=0.7023 | valid_loss=0.6591 valid_acc=0.6393 valid_f1=0.4862 valid_auroc=0.6553
+[Epoch 009] train_loss=0.5844 train_acc=0.6723 train_f1=0.6282 train_auroc=0.7340 | valid_loss=0.6617 valid_acc=0.6371 valid_f1=0.5459 valid_auroc=0.6650
+[Epoch 010] train_loss=0.5890 train_acc=0.6618 train_f1=0.6154 train_auroc=0.7247 | valid_loss=0.6584 valid_acc=0.6371 valid_f1=0.4783 valid_auroc=0.6616
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?5                                                                                                                                                                                                                                                    took  2m 45s  .venv-m2d  base with mingyujung@jbrserver1 at  17:53:11
+❯ cd ~/private/ajou_grad/hs
+source .venv-m2d/bin/activate
+
+CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_none \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "none",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5975855130784709,
+    "f1": 0.38650306748466257,
+    "confusion_matrix": [
+      [
+        234,
+        25
+      ],
+      [
+        175,
+        63
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5721271393643031,
+        "recall": 0.9034749034749034,
+        "f1-score": 0.7005988023952096,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7159090909090909,
+        "recall": 0.2647058823529412,
+        "f1-score": 0.38650306748466257,
+        "support": 238.0
+      },
+      "accuracy": 0.5975855130784709,
+      "macro avg": {
+        "precision": 0.644018115136697,
+        "recall": 0.5840903929139223,
+        "f1-score": 0.5435509349399361,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6409804682730748,
+        "recall": 0.5975855130784709,
+        "f1-score": 0.5501867603253701,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6542617046818728
+  },
+  "patient_level": {
+    "accuracy": 0.6293706293706294,
+    "f1": 0.46464646464646464,
+    "confusion_matrix": [
+      [
+        67,
+        7
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5929203539823009,
+        "recall": 0.9054054054054054,
+        "f1-score": 0.7165775401069518,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7666666666666667,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46464646464646464,
+        "support": 69.0
+      },
+      "accuracy": 0.6293706293706294,
+      "macro avg": {
+        "precision": 0.6797935103244839,
+        "recall": 0.6193693693693694,
+        "f1-score": 0.5906120023767083,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6767559873754564,
+        "recall": 0.6293706293706294,
+        "f1-score": 0.5950163918078357,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6680376028202115
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+  ~/private/ajou_grad/hs on   main !4 ?5                                                                                                                                                                                                                                                            ✘ INT  .venv-m2d  base with mingyujung@jbrserver1 at  17:50:14
+❯ CUDA_VISIBLE_DEVICES=0 \
+> PEFT_METHOD=none \
+OUTPUT_DIR=outputs/circor_outcome_m2d_none \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=1,967,618 / total=87,460,612 (2.2497%)
+[INFO] encoder: trainable=0 / total=85,492,994 (0.0000%)
+[INFO] m2d_inner: trainable=0 / total=85,492,994 (0.0000%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "none",
+  "config": {
+    "method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 0,
+  "targets_preview": [],
+  "stats": {
+    "total": 85492994,
+    "trainable": 0,
+    "frozen": 85492994,
+    "trainable_ratio": 0.0
+  }
+}
+[INFO] trainable parameter names preview:
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6677 train_acc=0.5906 train_f1=0.5417 train_auroc=0.6222 | valid_loss=0.6391 valid_acc=0.6307 valid_f1=0.4242 valid_auroc=0.6547
+[INFO] best checkpoint updated: valid_auroc=0.6547
+[Epoch 002] train_loss=0.6351 train_acc=0.6192 train_f1=0.5563 train_auroc=0.6602 | valid_loss=0.6465 valid_acc=0.6393 valid_f1=0.4765 valid_auroc=0.6514
+[Epoch 003] train_loss=0.6207 train_acc=0.6405 train_f1=0.5792 train_auroc=0.6765 | valid_loss=0.6921 valid_acc=0.5637 valid_f1=0.6393 valid_auroc=0.6699
+[INFO] best checkpoint updated: valid_auroc=0.6699
+[Epoch 004] train_loss=0.6227 train_acc=0.6246 train_f1=0.5613 train_auroc=0.6748 | valid_loss=0.6923 valid_acc=0.5594 valid_f1=0.5952 valid_auroc=0.6607
+[Epoch 005] train_loss=0.6034 train_acc=0.6423 train_f1=0.5736 train_auroc=0.7035 | valid_loss=0.6542 valid_acc=0.6371 valid_f1=0.4545 valid_auroc=0.6592
+[Epoch 006] train_loss=0.6002 train_acc=0.6618 train_f1=0.6130 train_auroc=0.7135 | valid_loss=0.6554 valid_acc=0.6436 valid_f1=0.4828 valid_auroc=0.6754
+[INFO] best checkpoint updated: valid_auroc=0.6754
+[Epoch 007] train_loss=0.5990 train_acc=0.6623 train_f1=0.6084 train_auroc=0.7129 | valid_loss=0.6936 valid_acc=0.5724 valid_f1=0.6102 valid_auroc=0.6588
+[Epoch 008] train_loss=0.6054 train_acc=0.6478 train_f1=0.5996 train_auroc=0.7023 | valid_loss=0.6591 valid_acc=0.6393 valid_f1=0.4862 valid_auroc=0.6553
+[Epoch 009] train_loss=0.5844 train_acc=0.6723 train_f1=0.6282 train_auroc=0.7340 | valid_loss=0.6617 valid_acc=0.6371 valid_f1=0.5459 valid_auroc=0.6650
+[Epoch 010] train_loss=0.5890 train_acc=0.6618 train_f1=0.6154 train_auroc=0.7247 | valid_loss=0.6584 valid_acc=0.6371 valid_f1=0.4783 valid_auroc=0.6616
+
+  ~/private/ajou_grad/hs on   main !4 ?5                                                                                                                                                                                                                                                    took  2m 45s  .venv-m2d  base with mingyujung@jbrserver1 at  17:53:11
+❯ cd ~/private/ajou_grad/hs
+source .venv-m2d/bin/activate
+
+CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_none \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "none",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5975855130784709,
+    "f1": 0.38650306748466257,
+    "confusion_matrix": [
+      [
+        234,
+        25
+      ],
+      [
+        175,
+        63
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5721271393643031,
+        "recall": 0.9034749034749034,
+        "f1-score": 0.7005988023952096,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7159090909090909,
+        "recall": 0.2647058823529412,
+        "f1-score": 0.38650306748466257,
+        "support": 238.0
+      },
+      "accuracy": 0.5975855130784709,
+      "macro avg": {
+        "precision": 0.644018115136697,
+        "recall": 0.5840903929139223,
+        "f1-score": 0.5435509349399361,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6409804682730748,
+        "recall": 0.5975855130784709,
+        "f1-score": 0.5501867603253701,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6542617046818728
+  },
+  "patient_level": {
+    "accuracy": 0.6293706293706294,
+    "f1": 0.46464646464646464,
+    "confusion_matrix": [
+      [
+        67,
+        7
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5929203539823009,
+        "recall": 0.9054054054054054,
+        "f1-score": 0.7165775401069518,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7666666666666667,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46464646464646464,
+        "support": 69.0
+      },
+      "accuracy": 0.6293706293706294,
+      "macro avg": {
+        "precision": 0.6797935103244839,
+        "recall": 0.6193693693693694,
+        "f1-score": 0.5906120023767083,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6767559873754564,
+        "recall": 0.6293706293706294,
+        "f1-score": 0.5950163918078357,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6680376028202115
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                                                                                                                                                                                                       took  11s  .venv-m2d  base with mingyujung@jbrserver1 at  19:33:16
+❯ CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_none \
+PATIENT_AGGREGATION=max \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "none",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5975855130784709,
+    "f1": 0.38650306748466257,
+    "confusion_matrix": [
+      [
+        234,
+        25
+      ],
+      [
+        175,
+        63
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5721271393643031,
+        "recall": 0.9034749034749034,
+        "f1-score": 0.7005988023952096,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7159090909090909,
+        "recall": 0.2647058823529412,
+        "f1-score": 0.38650306748466257,
+        "support": 238.0
+      },
+      "accuracy": 0.5975855130784709,
+      "macro avg": {
+        "precision": 0.644018115136697,
+        "recall": 0.5840903929139223,
+        "f1-score": 0.5435509349399361,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6409804682730748,
+        "recall": 0.5975855130784709,
+        "f1-score": 0.5501867603253701,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6542617046818728
+  },
+  "patient_level": {
+    "accuracy": 0.5804195804195804,
+    "f1": 0.4642857142857143,
+    "confusion_matrix": [
+      [
+        57,
+        17
+      ],
+      [
+        43,
+        26
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.57,
+        "recall": 0.7702702702702703,
+        "f1-score": 0.6551724137931034,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.6046511627906976,
+        "recall": 0.37681159420289856,
+        "f1-score": 0.4642857142857143,
+        "support": 69.0
+      },
+      "accuracy": 0.5804195804195804,
+      "macro avg": {
+        "precision": 0.5873255813953489,
+        "recall": 0.5735409322365844,
+        "f1-score": 0.5597290640394088,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.5867197918360709,
+        "recall": 0.5804195804195804,
+        "f1-score": 0.5630662441007268,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6396396396396397
+  },
+  "patient_aggregation": "max",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+
+----------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                                                                                                                                                                                                       took  11s  .venv-m2d  base with mingyujung@jbrserver1 at  19:33:54
+❯ CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_none \
+PATIENT_AGGREGATION=noisy_or \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "none",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5975855130784709,
+    "f1": 0.38650306748466257,
+    "confusion_matrix": [
+      [
+        234,
+        25
+      ],
+      [
+        175,
+        63
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5721271393643031,
+        "recall": 0.9034749034749034,
+        "f1-score": 0.7005988023952096,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7159090909090909,
+        "recall": 0.2647058823529412,
+        "f1-score": 0.38650306748466257,
+        "support": 238.0
+      },
+      "accuracy": 0.5975855130784709,
+      "macro avg": {
+        "precision": 0.644018115136697,
+        "recall": 0.5840903929139223,
+        "f1-score": 0.5435509349399361,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6409804682730748,
+        "recall": 0.5975855130784709,
+        "f1-score": 0.5501867603253701,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6542617046818728
+  },
+  "patient_level": {
+    "accuracy": 0.4825174825174825,
+    "f1": 0.6372549019607843,
+    "confusion_matrix": [
+      [
+        4,
+        70
+      ],
+      [
+        4,
+        65
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5,
+        "recall": 0.05405405405405406,
+        "f1-score": 0.0975609756097561,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.48148148148148145,
+        "recall": 0.9420289855072463,
+        "f1-score": 0.6372549019607843,
+        "support": 69.0
+      },
+      "accuracy": 0.4825174825174825,
+      "macro avg": {
+        "precision": 0.4907407407407407,
+        "recall": 0.4980415197806502,
+        "f1-score": 0.36740793878527017,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.4910644910644911,
+        "recall": 0.4825174825174825,
+        "f1-score": 0.3579727302826298,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6584410497453975
+  },
+  "patient_aggregation": "noisy_or",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "none",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                                                                                                                                                                                                       took  10s  .venv-m2d  base with mingyujung@jbrserver1 at  19:34:06
+❯ CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=norm \
+EPOCHS=1 \
+BATCH_SIZE=2 \
+LR=1e-4 \
+ENCODER_LR=1e-5 \
+OUTPUT_DIR=outputs/debug_norm \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,089,730 / total=87,460,612 (2.3893%)
+[INFO] encoder: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] m2d_inner: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "norm",
+  "config": {
+    "method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 99,
+  "targets_preview": [
+    "backbone.blocks.0.attn.proj.bias",
+    "backbone.blocks.0.attn.qkv.bias",
+    "backbone.blocks.0.mlp.fc1.bias",
+    "backbone.blocks.0.mlp.fc2.bias",
+    "backbone.blocks.0.norm1.bias",
+    "backbone.blocks.0.norm1.weight",
+    "backbone.blocks.0.norm2.bias",
+    "backbone.blocks.0.norm2.weight",
+    "backbone.blocks.1.attn.proj.bias",
+    "backbone.blocks.1.attn.qkv.bias",
+    "backbone.blocks.1.mlp.fc1.bias",
+    "backbone.blocks.1.mlp.fc2.bias",
+    "backbone.blocks.1.norm1.bias",
+    "backbone.blocks.1.norm1.weight",
+    "backbone.blocks.1.norm2.bias",
+    "backbone.blocks.1.norm2.weight",
+    "backbone.blocks.10.attn.proj.bias",
+    "backbone.blocks.10.attn.qkv.bias",
+    "backbone.blocks.10.mlp.fc1.bias",
+    "backbone.blocks.10.mlp.fc2.bias",
+    "backbone.blocks.10.norm1.bias",
+    "backbone.blocks.10.norm1.weight",
+    "backbone.blocks.10.norm2.bias",
+    "backbone.blocks.10.norm2.weight",
+    "backbone.blocks.11.attn.proj.bias",
+    "backbone.blocks.11.attn.qkv.bias",
+    "backbone.blocks.11.mlp.fc1.bias",
+    "backbone.blocks.11.mlp.fc2.bias",
+    "backbone.blocks.11.norm1.bias",
+    "backbone.blocks.11.norm1.weight",
+    "backbone.blocks.11.norm2.bias",
+    "backbone.blocks.11.norm2.weight",
+    "backbone.blocks.2.attn.proj.bias",
+    "backbone.blocks.2.attn.qkv.bias",
+    "backbone.blocks.2.mlp.fc1.bias",
+    "backbone.blocks.2.mlp.fc2.bias",
+    "backbone.blocks.2.norm1.bias",
+    "backbone.blocks.2.norm1.weight",
+    "backbone.blocks.2.norm2.bias",
+    "backbone.blocks.2.norm2.weight"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85492994,
+    "trainable": 122112,
+    "frozen": 85370882,
+    "trainable_ratio": 0.001428327565648245
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.patch_embed.proj.bias
+  - encoder.model.backbone.blocks.0.norm1.weight
+  - encoder.model.backbone.blocks.0.norm1.bias
+  - encoder.model.backbone.blocks.0.attn.qkv.bias
+  - encoder.model.backbone.blocks.0.attn.proj.bias
+  - encoder.model.backbone.blocks.0.norm2.weight
+  - encoder.model.backbone.blocks.0.norm2.bias
+  - encoder.model.backbone.blocks.0.mlp.fc1.bias
+  - encoder.model.backbone.blocks.0.mlp.fc2.bias
+  - encoder.model.backbone.blocks.1.norm1.weight
+  - encoder.model.backbone.blocks.1.norm1.bias
+  - encoder.model.backbone.blocks.1.attn.qkv.bias
+  - encoder.model.backbone.blocks.1.attn.proj.bias
+  - encoder.model.backbone.blocks.1.norm2.weight
+  - encoder.model.backbone.blocks.1.norm2.bias
+  - encoder.model.backbone.blocks.1.mlp.fc1.bias
+  - encoder.model.backbone.blocks.1.mlp.fc2.bias
+  - encoder.model.backbone.blocks.2.norm1.weight
+  - encoder.model.backbone.blocks.2.norm1.bias
+  - encoder.model.backbone.blocks.2.attn.qkv.bias
+  - encoder.model.backbone.blocks.2.attn.proj.bias
+  - encoder.model.backbone.blocks.2.norm2.weight
+  - encoder.model.backbone.blocks.2.norm2.bias
+  - encoder.model.backbone.blocks.2.mlp.fc1.bias
+  - encoder.model.backbone.blocks.2.mlp.fc2.bias
+  - encoder.model.backbone.blocks.3.norm1.weight
+  - encoder.model.backbone.blocks.3.norm1.bias
+  - encoder.model.backbone.blocks.3.attn.qkv.bias
+  - encoder.model.backbone.blocks.3.attn.proj.bias
+  - encoder.model.backbone.blocks.3.norm2.weight
+  - encoder.model.backbone.blocks.3.norm2.bias
+  - encoder.model.backbone.blocks.3.mlp.fc1.bias
+  - encoder.model.backbone.blocks.3.mlp.fc2.bias
+  - encoder.model.backbone.blocks.4.norm1.weight
+  - encoder.model.backbone.blocks.4.norm1.bias
+  - encoder.model.backbone.blocks.4.attn.qkv.bias
+  - encoder.model.backbone.blocks.4.attn.proj.bias
+  - encoder.model.backbone.blocks.4.norm2.weight
+  - encoder.model.backbone.blocks.4.norm2.bias
+  - encoder.model.backbone.blocks.4.mlp.fc1.bias
+  - encoder.model.backbone.blocks.4.mlp.fc2.bias
+  - encoder.model.backbone.blocks.5.norm1.weight
+  - encoder.model.backbone.blocks.5.norm1.bias
+  - encoder.model.backbone.blocks.5.attn.qkv.bias
+  - encoder.model.backbone.blocks.5.attn.proj.bias
+  - encoder.model.backbone.blocks.5.norm2.weight
+  - encoder.model.backbone.blocks.5.norm2.bias
+  - encoder.model.backbone.blocks.5.mlp.fc1.bias
+  - encoder.model.backbone.blocks.5.mlp.fc2.bias
+  - encoder.model.backbone.blocks.6.norm1.weight
+  - encoder.model.backbone.blocks.6.norm1.bias
+  - encoder.model.backbone.blocks.6.attn.qkv.bias
+  - encoder.model.backbone.blocks.6.attn.proj.bias
+  - encoder.model.backbone.blocks.6.norm2.weight
+  - encoder.model.backbone.blocks.6.norm2.bias
+  - encoder.model.backbone.blocks.6.mlp.fc1.bias
+  - encoder.model.backbone.blocks.6.mlp.fc2.bias
+  - encoder.model.backbone.blocks.7.norm1.weight
+  - encoder.model.backbone.blocks.7.norm1.bias
+  - encoder.model.backbone.blocks.7.attn.qkv.bias
+  - encoder.model.backbone.blocks.7.attn.proj.bias
+  - encoder.model.backbone.blocks.7.norm2.weight
+  - encoder.model.backbone.blocks.7.norm2.bias
+  - encoder.model.backbone.blocks.7.mlp.fc1.bias
+  - encoder.model.backbone.blocks.7.mlp.fc2.bias
+  - encoder.model.backbone.blocks.8.norm1.weight
+  - encoder.model.backbone.blocks.8.norm1.bias
+  - encoder.model.backbone.blocks.8.attn.qkv.bias
+  - encoder.model.backbone.blocks.8.attn.proj.bias
+  - encoder.model.backbone.blocks.8.norm2.weight
+  - encoder.model.backbone.blocks.8.norm2.bias
+  - encoder.model.backbone.blocks.8.mlp.fc1.bias
+  - encoder.model.backbone.blocks.8.mlp.fc2.bias
+  - encoder.model.backbone.blocks.9.norm1.weight
+  - encoder.model.backbone.blocks.9.norm1.bias
+  - encoder.model.backbone.blocks.9.attn.qkv.bias
+  - encoder.model.backbone.blocks.9.attn.proj.bias
+  - encoder.model.backbone.blocks.9.norm2.weight
+  - encoder.model.backbone.blocks.9.norm2.bias
+  - encoder.model.backbone.blocks.9.mlp.fc1.bias
+  - ... (23 more)
+[Epoch 001] train_loss=0.6725 train_acc=0.5847 train_f1=0.5262 train_auroc=0.6051 | valid_loss=0.6494 valid_acc=0.6242 valid_f1=0.4238 valid_auroc=0.6413
+[INFO] best checkpoint updated: valid_auroc=0.6413
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                            .venv-m2d  base with mingyujung@jbrserver1 at  20:59:42
+❯ CUDA_VISIBLE_DEVICES=1 \
+PEFT_METHOD=lora \
+LORA_RANK=4 \
+LORA_ALPHA=8.0 \
+LORA_DROPOUT=0.05 \
+LORA_TARGET_KEYWORDS=qkv,proj \
+EPOCHS=1 \
+BATCH_SIZE=2 \
+LR=1e-4 \
+ENCODER_LR=1e-4 \
+OUTPUT_DIR=outputs/debug_lora_r4 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,188,802 / total=87,681,796 (2.4963%)
+[INFO] encoder: trainable=221,184 / total=85,714,178 (0.2580%)
+[INFO] m2d_inner: trainable=221,184 / total=85,714,178 (0.2580%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "lora",
+  "config": {
+    "method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 24,
+  "targets_preview": [
+    "backbone.blocks.0.attn.qkv",
+    "backbone.blocks.0.attn.proj",
+    "backbone.blocks.1.attn.qkv",
+    "backbone.blocks.1.attn.proj",
+    "backbone.blocks.2.attn.qkv",
+    "backbone.blocks.2.attn.proj",
+    "backbone.blocks.3.attn.qkv",
+    "backbone.blocks.3.attn.proj",
+    "backbone.blocks.4.attn.qkv",
+    "backbone.blocks.4.attn.proj",
+    "backbone.blocks.5.attn.qkv",
+    "backbone.blocks.5.attn.proj",
+    "backbone.blocks.6.attn.qkv",
+    "backbone.blocks.6.attn.proj",
+    "backbone.blocks.7.attn.qkv",
+    "backbone.blocks.7.attn.proj",
+    "backbone.blocks.8.attn.qkv",
+    "backbone.blocks.8.attn.proj",
+    "backbone.blocks.9.attn.qkv",
+    "backbone.blocks.9.attn.proj",
+    "backbone.blocks.10.attn.qkv",
+    "backbone.blocks.10.attn.proj",
+    "backbone.blocks.11.attn.qkv",
+    "backbone.blocks.11.attn.proj"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85714178,
+    "trainable": 221184,
+    "frozen": 85492994,
+    "trainable_ratio": 0.0025804832428072753
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_B.weight
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6621 train_acc=0.6037 train_f1=0.5575 train_auroc=0.6281 | valid_loss=0.6369 valid_acc=0.6523 valid_f1=0.4984 valid_auroc=0.6403
+[INFO] best checkpoint updated: valid_auroc=0.6403
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                     ✘ INT  .venv-m2d  base with mingyujung@jbrserver1 at  21:57:51
+❯ CUDA_VISIBLE_DEVICES=2 \
+PEFT_METHOD=last_blocks \
+TRAINABLE_LAST_BLOCKS=1 \
+EPOCHS=1 \
+BATCH_SIZE=1 \
+LR=1e-4 \
+ENCODER_LR=1e-6 \
+OUTPUT_DIR=outputs/debug_last1 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=9,055,490 / total=87,460,612 (10.3538%)
+[INFO] encoder: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] m2d_inner: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "last_blocks",
+  "config": {
+    "method": "last_blocks",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 1,
+  "targets_preview": [
+    "backbone.blocks.11"
+  ],
+  "train_module_prefixes": [
+    "backbone.blocks.11"
+  ],
+  "stats": {
+    "total": 85492994,
+    "trainable": 7087872,
+    "frozen": 78405122,
+    "trainable_ratio": 0.08290588115325567
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.11.norm1.weight
+  - encoder.model.backbone.blocks.11.norm1.bias
+  - encoder.model.backbone.blocks.11.attn.qkv.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.bias
+  - encoder.model.backbone.blocks.11.attn.proj.weight
+  - encoder.model.backbone.blocks.11.attn.proj.bias
+  - encoder.model.backbone.blocks.11.norm2.weight
+  - encoder.model.backbone.blocks.11.norm2.bias
+  - encoder.model.backbone.blocks.11.mlp.fc1.weight
+  - encoder.model.backbone.blocks.11.mlp.fc1.bias
+  - encoder.model.backbone.blocks.11.mlp.fc2.weight
+  - encoder.model.backbone.blocks.11.mlp.fc2.bias
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6786 train_acc=0.5801 train_f1=0.5259 train_auroc=0.6046 | valid_loss=0.6473 valid_acc=0.6285 valid_f1=0.4110 valid_auroc=0.6485
+[INFO] best checkpoint updated: valid_auroc=0.6485
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                took  48s  .venv-m2d  base with mingyujung@jbrserver1 at  21:59:02
+❯ CUDA_VISIBLE_DEVICES=2 \
+PEFT_METHOD=last_blocks \
+TRAINABLE_LAST_BLOCKS=1 \
+EPOCHS=1 \
+BATCH_SIZE=1 \
+LR=1e-4 \
+ENCODER_LR=1e-6 \
+OUTPUT_DIR=outputs/debug_last1 \
+bash scripts/train_circor_outcome_peft.sh
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                     ✘ INT  .venv-m2d  base with mingyujung@jbrserver1 at  22:00:07
+❯ CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=norm \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=1e-5 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_norm_elr1e-5 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,089,730 / total=87,460,612 (2.3893%)
+[INFO] encoder: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] m2d_inner: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "norm",
+  "config": {
+    "method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 99,
+  "targets_preview": [
+    "backbone.blocks.0.attn.proj.bias",
+    "backbone.blocks.0.attn.qkv.bias",
+    "backbone.blocks.0.mlp.fc1.bias",
+    "backbone.blocks.0.mlp.fc2.bias",
+    "backbone.blocks.0.norm1.bias",
+    "backbone.blocks.0.norm1.weight",
+    "backbone.blocks.0.norm2.bias",
+    "backbone.blocks.0.norm2.weight",
+    "backbone.blocks.1.attn.proj.bias",
+    "backbone.blocks.1.attn.qkv.bias",
+    "backbone.blocks.1.mlp.fc1.bias",
+    "backbone.blocks.1.mlp.fc2.bias",
+    "backbone.blocks.1.norm1.bias",
+    "backbone.blocks.1.norm1.weight",
+    "backbone.blocks.1.norm2.bias",
+    "backbone.blocks.1.norm2.weight",
+    "backbone.blocks.10.attn.proj.bias",
+    "backbone.blocks.10.attn.qkv.bias",
+    "backbone.blocks.10.mlp.fc1.bias",
+    "backbone.blocks.10.mlp.fc2.bias",
+    "backbone.blocks.10.norm1.bias",
+    "backbone.blocks.10.norm1.weight",
+    "backbone.blocks.10.norm2.bias",
+    "backbone.blocks.10.norm2.weight",
+    "backbone.blocks.11.attn.proj.bias",
+    "backbone.blocks.11.attn.qkv.bias",
+    "backbone.blocks.11.mlp.fc1.bias",
+    "backbone.blocks.11.mlp.fc2.bias",
+    "backbone.blocks.11.norm1.bias",
+    "backbone.blocks.11.norm1.weight",
+    "backbone.blocks.11.norm2.bias",
+    "backbone.blocks.11.norm2.weight",
+    "backbone.blocks.2.attn.proj.bias",
+    "backbone.blocks.2.attn.qkv.bias",
+    "backbone.blocks.2.mlp.fc1.bias",
+    "backbone.blocks.2.mlp.fc2.bias",
+    "backbone.blocks.2.norm1.bias",
+    "backbone.blocks.2.norm1.weight",
+    "backbone.blocks.2.norm2.bias",
+    "backbone.blocks.2.norm2.weight"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85492994,
+    "trainable": 122112,
+    "frozen": 85370882,
+    "trainable_ratio": 0.001428327565648245
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.patch_embed.proj.bias
+  - encoder.model.backbone.blocks.0.norm1.weight
+  - encoder.model.backbone.blocks.0.norm1.bias
+  - encoder.model.backbone.blocks.0.attn.qkv.bias
+  - encoder.model.backbone.blocks.0.attn.proj.bias
+  - encoder.model.backbone.blocks.0.norm2.weight
+  - encoder.model.backbone.blocks.0.norm2.bias
+  - encoder.model.backbone.blocks.0.mlp.fc1.bias
+  - encoder.model.backbone.blocks.0.mlp.fc2.bias
+  - encoder.model.backbone.blocks.1.norm1.weight
+  - encoder.model.backbone.blocks.1.norm1.bias
+  - encoder.model.backbone.blocks.1.attn.qkv.bias
+  - encoder.model.backbone.blocks.1.attn.proj.bias
+  - encoder.model.backbone.blocks.1.norm2.weight
+  - encoder.model.backbone.blocks.1.norm2.bias
+  - encoder.model.backbone.blocks.1.mlp.fc1.bias
+  - encoder.model.backbone.blocks.1.mlp.fc2.bias
+  - encoder.model.backbone.blocks.2.norm1.weight
+  - encoder.model.backbone.blocks.2.norm1.bias
+  - encoder.model.backbone.blocks.2.attn.qkv.bias
+  - encoder.model.backbone.blocks.2.attn.proj.bias
+  - encoder.model.backbone.blocks.2.norm2.weight
+  - encoder.model.backbone.blocks.2.norm2.bias
+  - encoder.model.backbone.blocks.2.mlp.fc1.bias
+  - encoder.model.backbone.blocks.2.mlp.fc2.bias
+  - encoder.model.backbone.blocks.3.norm1.weight
+  - encoder.model.backbone.blocks.3.norm1.bias
+  - encoder.model.backbone.blocks.3.attn.qkv.bias
+  - encoder.model.backbone.blocks.3.attn.proj.bias
+  - encoder.model.backbone.blocks.3.norm2.weight
+  - encoder.model.backbone.blocks.3.norm2.bias
+  - encoder.model.backbone.blocks.3.mlp.fc1.bias
+  - encoder.model.backbone.blocks.3.mlp.fc2.bias
+  - encoder.model.backbone.blocks.4.norm1.weight
+  - encoder.model.backbone.blocks.4.norm1.bias
+  - encoder.model.backbone.blocks.4.attn.qkv.bias
+  - encoder.model.backbone.blocks.4.attn.proj.bias
+  - encoder.model.backbone.blocks.4.norm2.weight
+  - encoder.model.backbone.blocks.4.norm2.bias
+  - encoder.model.backbone.blocks.4.mlp.fc1.bias
+  - encoder.model.backbone.blocks.4.mlp.fc2.bias
+  - encoder.model.backbone.blocks.5.norm1.weight
+  - encoder.model.backbone.blocks.5.norm1.bias
+  - encoder.model.backbone.blocks.5.attn.qkv.bias
+  - encoder.model.backbone.blocks.5.attn.proj.bias
+  - encoder.model.backbone.blocks.5.norm2.weight
+  - encoder.model.backbone.blocks.5.norm2.bias
+  - encoder.model.backbone.blocks.5.mlp.fc1.bias
+  - encoder.model.backbone.blocks.5.mlp.fc2.bias
+  - encoder.model.backbone.blocks.6.norm1.weight
+  - encoder.model.backbone.blocks.6.norm1.bias
+  - encoder.model.backbone.blocks.6.attn.qkv.bias
+  - encoder.model.backbone.blocks.6.attn.proj.bias
+  - encoder.model.backbone.blocks.6.norm2.weight
+  - encoder.model.backbone.blocks.6.norm2.bias
+  - encoder.model.backbone.blocks.6.mlp.fc1.bias
+  - encoder.model.backbone.blocks.6.mlp.fc2.bias
+  - encoder.model.backbone.blocks.7.norm1.weight
+  - encoder.model.backbone.blocks.7.norm1.bias
+  - encoder.model.backbone.blocks.7.attn.qkv.bias
+  - encoder.model.backbone.blocks.7.attn.proj.bias
+  - encoder.model.backbone.blocks.7.norm2.weight
+  - encoder.model.backbone.blocks.7.norm2.bias
+  - encoder.model.backbone.blocks.7.mlp.fc1.bias
+  - encoder.model.backbone.blocks.7.mlp.fc2.bias
+  - encoder.model.backbone.blocks.8.norm1.weight
+  - encoder.model.backbone.blocks.8.norm1.bias
+  - encoder.model.backbone.blocks.8.attn.qkv.bias
+  - encoder.model.backbone.blocks.8.attn.proj.bias
+  - encoder.model.backbone.blocks.8.norm2.weight
+  - encoder.model.backbone.blocks.8.norm2.bias
+  - encoder.model.backbone.blocks.8.mlp.fc1.bias
+  - encoder.model.backbone.blocks.8.mlp.fc2.bias
+  - encoder.model.backbone.blocks.9.norm1.weight
+  - encoder.model.backbone.blocks.9.norm1.bias
+  - encoder.model.backbone.blocks.9.attn.qkv.bias
+  - encoder.model.backbone.blocks.9.attn.proj.bias
+  - encoder.model.backbone.blocks.9.norm2.weight
+  - encoder.model.backbone.blocks.9.norm2.bias
+  - encoder.model.backbone.blocks.9.mlp.fc1.bias
+  - ... (23 more)
+[Epoch 001] train_loss=0.6667 train_acc=0.5901 train_f1=0.5423 train_auroc=0.6237 | valid_loss=0.6353 valid_acc=0.6393 valid_f1=0.4630 valid_auroc=0.6613
+[INFO] best checkpoint updated: valid_auroc=0.6613
+[Epoch 002] train_loss=0.6314 train_acc=0.6260 train_f1=0.5636 train_auroc=0.6648 | valid_loss=0.6479 valid_acc=0.6415 valid_f1=0.4780 valid_auroc=0.6568
+[Epoch 003] train_loss=0.6158 train_acc=0.6360 train_f1=0.5711 train_auroc=0.6836 | valid_loss=0.6888 valid_acc=0.5875 valid_f1=0.6389 valid_auroc=0.6752
+[INFO] best checkpoint updated: valid_auroc=0.6752
+[Epoch 004] train_loss=0.6157 train_acc=0.6341 train_f1=0.5667 train_auroc=0.6873 | valid_loss=0.6992 valid_acc=0.5594 valid_f1=0.5968 valid_auroc=0.6639
+[Epoch 005] train_loss=0.5958 train_acc=0.6500 train_f1=0.5812 train_auroc=0.7128 | valid_loss=0.6644 valid_acc=0.6285 valid_f1=0.4625 valid_auroc=0.6635
+[Epoch 006] train_loss=0.5873 train_acc=0.6709 train_f1=0.6202 train_auroc=0.7297 | valid_loss=0.6626 valid_acc=0.6609 valid_f1=0.5199 valid_auroc=0.6799
+[INFO] best checkpoint updated: valid_auroc=0.6799
+[Epoch 007] train_loss=0.5801 train_acc=0.6714 train_f1=0.6193 train_auroc=0.7372 | valid_loss=0.7439 valid_acc=0.5378 valid_f1=0.6081 valid_auroc=0.6640
+[Epoch 008] train_loss=0.5809 train_acc=0.6718 train_f1=0.6209 train_auroc=0.7340 | valid_loss=0.6835 valid_acc=0.6307 valid_f1=0.5512 valid_auroc=0.6571
+[Epoch 009] train_loss=0.5625 train_acc=0.6945 train_f1=0.6536 train_auroc=0.7571 | valid_loss=0.6764 valid_acc=0.6436 valid_f1=0.5272 valid_auroc=0.6734
+[Epoch 010] train_loss=0.5531 train_acc=0.7022 train_f1=0.6608 train_auroc=0.7704 | valid_loss=0.6634 valid_acc=0.6328 valid_f1=0.5355 valid_auroc=0.6524
+[Epoch 011] train_loss=0.5516 train_acc=0.7040 train_f1=0.6586 train_auroc=0.7736 | valid_loss=0.6724 valid_acc=0.6263 valid_f1=0.5127 valid_auroc=0.6377
+[Epoch 012] train_loss=0.5304 train_acc=0.7104 train_f1=0.6718 train_auroc=0.7897 | valid_loss=0.6897 valid_acc=0.6350 valid_f1=0.5888 valid_auroc=0.6631
+[Epoch 013] train_loss=0.5265 train_acc=0.7254 train_f1=0.6896 train_auroc=0.7954 | valid_loss=0.7170 valid_acc=0.6220 valid_f1=0.5658 valid_auroc=0.6683
+[Epoch 014] train_loss=0.5146 train_acc=0.7385 train_f1=0.7111 train_auroc=0.8110 | valid_loss=0.7560 valid_acc=0.5832 valid_f1=0.5795 valid_auroc=0.6494
+[Epoch 015] train_loss=0.4990 train_acc=0.7408 train_f1=0.7100 train_auroc=0.8227 | valid_loss=0.7379 valid_acc=0.6328 valid_f1=0.4371 valid_auroc=0.6465
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                            .venv-m2d  base with mingyujung@jbrserver1 at  21:58:57
+❯ CUDA_VISIBLE_DEVICES=1 \
+PEFT_METHOD=norm \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=3e-5 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_norm_elr3e-5 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,089,730 / total=87,460,612 (2.3893%)
+[INFO] encoder: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] m2d_inner: trainable=122,112 / total=85,492,994 (0.1428%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "norm",
+  "config": {
+    "method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 99,
+  "targets_preview": [
+    "backbone.blocks.0.attn.proj.bias",
+    "backbone.blocks.0.attn.qkv.bias",
+    "backbone.blocks.0.mlp.fc1.bias",
+    "backbone.blocks.0.mlp.fc2.bias",
+    "backbone.blocks.0.norm1.bias",
+    "backbone.blocks.0.norm1.weight",
+    "backbone.blocks.0.norm2.bias",
+    "backbone.blocks.0.norm2.weight",
+    "backbone.blocks.1.attn.proj.bias",
+    "backbone.blocks.1.attn.qkv.bias",
+    "backbone.blocks.1.mlp.fc1.bias",
+    "backbone.blocks.1.mlp.fc2.bias",
+    "backbone.blocks.1.norm1.bias",
+    "backbone.blocks.1.norm1.weight",
+    "backbone.blocks.1.norm2.bias",
+    "backbone.blocks.1.norm2.weight",
+    "backbone.blocks.10.attn.proj.bias",
+    "backbone.blocks.10.attn.qkv.bias",
+    "backbone.blocks.10.mlp.fc1.bias",
+    "backbone.blocks.10.mlp.fc2.bias",
+    "backbone.blocks.10.norm1.bias",
+    "backbone.blocks.10.norm1.weight",
+    "backbone.blocks.10.norm2.bias",
+    "backbone.blocks.10.norm2.weight",
+    "backbone.blocks.11.attn.proj.bias",
+    "backbone.blocks.11.attn.qkv.bias",
+    "backbone.blocks.11.mlp.fc1.bias",
+    "backbone.blocks.11.mlp.fc2.bias",
+    "backbone.blocks.11.norm1.bias",
+    "backbone.blocks.11.norm1.weight",
+    "backbone.blocks.11.norm2.bias",
+    "backbone.blocks.11.norm2.weight",
+    "backbone.blocks.2.attn.proj.bias",
+    "backbone.blocks.2.attn.qkv.bias",
+    "backbone.blocks.2.mlp.fc1.bias",
+    "backbone.blocks.2.mlp.fc2.bias",
+    "backbone.blocks.2.norm1.bias",
+    "backbone.blocks.2.norm1.weight",
+    "backbone.blocks.2.norm2.bias",
+    "backbone.blocks.2.norm2.weight"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85492994,
+    "trainable": 122112,
+    "frozen": 85370882,
+    "trainable_ratio": 0.001428327565648245
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.patch_embed.proj.bias
+  - encoder.model.backbone.blocks.0.norm1.weight
+  - encoder.model.backbone.blocks.0.norm1.bias
+  - encoder.model.backbone.blocks.0.attn.qkv.bias
+  - encoder.model.backbone.blocks.0.attn.proj.bias
+  - encoder.model.backbone.blocks.0.norm2.weight
+  - encoder.model.backbone.blocks.0.norm2.bias
+  - encoder.model.backbone.blocks.0.mlp.fc1.bias
+  - encoder.model.backbone.blocks.0.mlp.fc2.bias
+  - encoder.model.backbone.blocks.1.norm1.weight
+  - encoder.model.backbone.blocks.1.norm1.bias
+  - encoder.model.backbone.blocks.1.attn.qkv.bias
+  - encoder.model.backbone.blocks.1.attn.proj.bias
+  - encoder.model.backbone.blocks.1.norm2.weight
+  - encoder.model.backbone.blocks.1.norm2.bias
+  - encoder.model.backbone.blocks.1.mlp.fc1.bias
+  - encoder.model.backbone.blocks.1.mlp.fc2.bias
+  - encoder.model.backbone.blocks.2.norm1.weight
+  - encoder.model.backbone.blocks.2.norm1.bias
+  - encoder.model.backbone.blocks.2.attn.qkv.bias
+  - encoder.model.backbone.blocks.2.attn.proj.bias
+  - encoder.model.backbone.blocks.2.norm2.weight
+  - encoder.model.backbone.blocks.2.norm2.bias
+  - encoder.model.backbone.blocks.2.mlp.fc1.bias
+  - encoder.model.backbone.blocks.2.mlp.fc2.bias
+  - encoder.model.backbone.blocks.3.norm1.weight
+  - encoder.model.backbone.blocks.3.norm1.bias
+  - encoder.model.backbone.blocks.3.attn.qkv.bias
+  - encoder.model.backbone.blocks.3.attn.proj.bias
+  - encoder.model.backbone.blocks.3.norm2.weight
+  - encoder.model.backbone.blocks.3.norm2.bias
+  - encoder.model.backbone.blocks.3.mlp.fc1.bias
+  - encoder.model.backbone.blocks.3.mlp.fc2.bias
+  - encoder.model.backbone.blocks.4.norm1.weight
+  - encoder.model.backbone.blocks.4.norm1.bias
+  - encoder.model.backbone.blocks.4.attn.qkv.bias
+  - encoder.model.backbone.blocks.4.attn.proj.bias
+  - encoder.model.backbone.blocks.4.norm2.weight
+  - encoder.model.backbone.blocks.4.norm2.bias
+  - encoder.model.backbone.blocks.4.mlp.fc1.bias
+  - encoder.model.backbone.blocks.4.mlp.fc2.bias
+  - encoder.model.backbone.blocks.5.norm1.weight
+  - encoder.model.backbone.blocks.5.norm1.bias
+  - encoder.model.backbone.blocks.5.attn.qkv.bias
+  - encoder.model.backbone.blocks.5.attn.proj.bias
+  - encoder.model.backbone.blocks.5.norm2.weight
+  - encoder.model.backbone.blocks.5.norm2.bias
+  - encoder.model.backbone.blocks.5.mlp.fc1.bias
+  - encoder.model.backbone.blocks.5.mlp.fc2.bias
+  - encoder.model.backbone.blocks.6.norm1.weight
+  - encoder.model.backbone.blocks.6.norm1.bias
+  - encoder.model.backbone.blocks.6.attn.qkv.bias
+  - encoder.model.backbone.blocks.6.attn.proj.bias
+  - encoder.model.backbone.blocks.6.norm2.weight
+  - encoder.model.backbone.blocks.6.norm2.bias
+  - encoder.model.backbone.blocks.6.mlp.fc1.bias
+  - encoder.model.backbone.blocks.6.mlp.fc2.bias
+  - encoder.model.backbone.blocks.7.norm1.weight
+  - encoder.model.backbone.blocks.7.norm1.bias
+  - encoder.model.backbone.blocks.7.attn.qkv.bias
+  - encoder.model.backbone.blocks.7.attn.proj.bias
+  - encoder.model.backbone.blocks.7.norm2.weight
+  - encoder.model.backbone.blocks.7.norm2.bias
+  - encoder.model.backbone.blocks.7.mlp.fc1.bias
+  - encoder.model.backbone.blocks.7.mlp.fc2.bias
+  - encoder.model.backbone.blocks.8.norm1.weight
+  - encoder.model.backbone.blocks.8.norm1.bias
+  - encoder.model.backbone.blocks.8.attn.qkv.bias
+  - encoder.model.backbone.blocks.8.attn.proj.bias
+  - encoder.model.backbone.blocks.8.norm2.weight
+  - encoder.model.backbone.blocks.8.norm2.bias
+  - encoder.model.backbone.blocks.8.mlp.fc1.bias
+  - encoder.model.backbone.blocks.8.mlp.fc2.bias
+  - encoder.model.backbone.blocks.9.norm1.weight
+  - encoder.model.backbone.blocks.9.norm1.bias
+  - encoder.model.backbone.blocks.9.attn.qkv.bias
+  - encoder.model.backbone.blocks.9.attn.proj.bias
+  - encoder.model.backbone.blocks.9.norm2.weight
+  - encoder.model.backbone.blocks.9.norm2.bias
+  - encoder.model.backbone.blocks.9.mlp.fc1.bias
+  - ... (23 more)
+[Epoch 001] train_loss=0.6643 train_acc=0.5942 train_f1=0.5439 train_auroc=0.6274 | valid_loss=0.6354 valid_acc=0.6458 valid_f1=0.4675 valid_auroc=0.6639
+[INFO] best checkpoint updated: valid_auroc=0.6639
+[Epoch 002] train_loss=0.6249 train_acc=0.6364 train_f1=0.5700 train_auroc=0.6745 | valid_loss=0.6514 valid_acc=0.6501 valid_f1=0.5000 valid_auroc=0.6604
+[Epoch 003] train_loss=0.6076 train_acc=0.6473 train_f1=0.5820 train_auroc=0.6951 | valid_loss=0.6888 valid_acc=0.6069 valid_f1=0.6345 valid_auroc=0.6817
+[INFO] best checkpoint updated: valid_auroc=0.6817
+[Epoch 004] train_loss=0.6059 train_acc=0.6450 train_f1=0.5773 train_auroc=0.7010 | valid_loss=0.7055 valid_acc=0.5551 valid_f1=0.5929 valid_auroc=0.6697
+[Epoch 005] train_loss=0.5812 train_acc=0.6709 train_f1=0.6121 train_auroc=0.7335 | valid_loss=0.6675 valid_acc=0.6328 valid_f1=0.4910 valid_auroc=0.6696
+[Epoch 006] train_loss=0.5690 train_acc=0.6913 train_f1=0.6451 train_auroc=0.7500 | valid_loss=0.6720 valid_acc=0.6652 valid_f1=0.5317 valid_auroc=0.6769
+[Epoch 007] train_loss=0.5624 train_acc=0.6918 train_f1=0.6409 train_auroc=0.7571 | valid_loss=0.7671 valid_acc=0.5745 valid_f1=0.6219 valid_auroc=0.6651
+[Epoch 008] train_loss=0.5560 train_acc=0.6990 train_f1=0.6559 train_auroc=0.7656 | valid_loss=0.7113 valid_acc=0.6069 valid_f1=0.5260 valid_auroc=0.6567
+[Epoch 009] train_loss=0.5341 train_acc=0.7190 train_f1=0.6794 train_auroc=0.7870 | valid_loss=0.6965 valid_acc=0.6371 valid_f1=0.5281 valid_auroc=0.6710
+[Epoch 010] train_loss=0.5178 train_acc=0.7331 train_f1=0.6991 train_auroc=0.8058 | valid_loss=0.6788 valid_acc=0.6242 valid_f1=0.5421 valid_auroc=0.6563
+[Epoch 011] train_loss=0.5151 train_acc=0.7326 train_f1=0.6962 train_auroc=0.8101 | valid_loss=0.7004 valid_acc=0.6220 valid_f1=0.5042 valid_auroc=0.6381
+[Epoch 012] train_loss=0.4889 train_acc=0.7463 train_f1=0.7149 train_auroc=0.8296 | valid_loss=0.7214 valid_acc=0.6220 valid_f1=0.5763 valid_auroc=0.6555
+[Epoch 013] train_loss=0.4836 train_acc=0.7585 train_f1=0.7319 train_auroc=0.8367 | valid_loss=0.7639 valid_acc=0.6242 valid_f1=0.5777 valid_auroc=0.6610
+[Epoch 014] train_loss=0.4593 train_acc=0.7739 train_f1=0.7525 train_auroc=0.8557 | valid_loss=0.8230 valid_acc=0.5745 valid_f1=0.5853 valid_auroc=0.6434
+[Epoch 015] train_loss=0.4406 train_acc=0.7817 train_f1=0.7608 train_auroc=0.8684 | valid_loss=0.7651 valid_acc=0.6328 valid_f1=0.4753 valid_auroc=0.6447
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                            .venv-m2d  base with mingyujung@jbrserver1 at  22:00:21
+❯ >....
+LORA_DROPOUT=0.05 \
+LORA_TARGET_KEYWORDS=qkv,proj \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=1e-4 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_lora_r4 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,188,802 / total=87,681,796 (2.4963%)
+[INFO] encoder: trainable=221,184 / total=85,714,178 (0.2580%)
+[INFO] m2d_inner: trainable=221,184 / total=85,714,178 (0.2580%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "lora",
+  "config": {
+    "method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 24,
+  "targets_preview": [
+    "backbone.blocks.0.attn.qkv",
+    "backbone.blocks.0.attn.proj",
+    "backbone.blocks.1.attn.qkv",
+    "backbone.blocks.1.attn.proj",
+    "backbone.blocks.2.attn.qkv",
+    "backbone.blocks.2.attn.proj",
+    "backbone.blocks.3.attn.qkv",
+    "backbone.blocks.3.attn.proj",
+    "backbone.blocks.4.attn.qkv",
+    "backbone.blocks.4.attn.proj",
+    "backbone.blocks.5.attn.qkv",
+    "backbone.blocks.5.attn.proj",
+    "backbone.blocks.6.attn.qkv",
+    "backbone.blocks.6.attn.proj",
+    "backbone.blocks.7.attn.qkv",
+    "backbone.blocks.7.attn.proj",
+    "backbone.blocks.8.attn.qkv",
+    "backbone.blocks.8.attn.proj",
+    "backbone.blocks.9.attn.qkv",
+    "backbone.blocks.9.attn.proj",
+    "backbone.blocks.10.attn.qkv",
+    "backbone.blocks.10.attn.proj",
+    "backbone.blocks.11.attn.qkv",
+    "backbone.blocks.11.attn.proj"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85714178,
+    "trainable": 221184,
+    "frozen": 85492994,
+    "trainable_ratio": 0.0025804832428072753
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_B.weight
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6603 train_acc=0.6010 train_f1=0.5518 train_auroc=0.6324 | valid_loss=0.6582 valid_acc=0.6307 valid_f1=0.4124 valid_auroc=0.6500
+[INFO] best checkpoint updated: valid_auroc=0.6500
+[Epoch 002] train_loss=0.6156 train_acc=0.6391 train_f1=0.5700 train_auroc=0.6850 | valid_loss=0.6472 valid_acc=0.6177 valid_f1=0.5608 valid_auroc=0.6755
+[INFO] best checkpoint updated: valid_auroc=0.6755
+[Epoch 003] train_loss=0.5956 train_acc=0.6573 train_f1=0.5784 train_auroc=0.7083 | valid_loss=0.6249 valid_acc=0.6609 valid_f1=0.5552 valid_auroc=0.6881
+[INFO] best checkpoint updated: valid_auroc=0.6881
+[Epoch 004] train_loss=0.5769 train_acc=0.6823 train_f1=0.6111 train_auroc=0.7306 | valid_loss=0.6619 valid_acc=0.6717 valid_f1=0.5422 valid_auroc=0.6977
+[INFO] best checkpoint updated: valid_auroc=0.6977
+[Epoch 005] train_loss=0.5735 train_acc=0.6832 train_f1=0.6215 train_auroc=0.7387 | valid_loss=0.6359 valid_acc=0.6458 valid_f1=0.5393 valid_auroc=0.6948
+[Epoch 006] train_loss=0.5533 train_acc=0.6891 train_f1=0.6291 train_auroc=0.7555 | valid_loss=0.7325 valid_acc=0.6523 valid_f1=0.5796 valid_auroc=0.6973
+[Epoch 007] train_loss=0.5354 train_acc=0.7072 train_f1=0.6496 train_auroc=0.7795 | valid_loss=0.6520 valid_acc=0.6544 valid_f1=0.5238 valid_auroc=0.7067
+[INFO] best checkpoint updated: valid_auroc=0.7067
+[Epoch 008] train_loss=0.5199 train_acc=0.7267 train_f1=0.6832 train_auroc=0.8021 | valid_loss=0.6779 valid_acc=0.6285 valid_f1=0.6245 valid_auroc=0.6919
+[Epoch 009] train_loss=0.5013 train_acc=0.7317 train_f1=0.6858 train_auroc=0.8120 | valid_loss=0.8171 valid_acc=0.6393 valid_f1=0.5877 valid_auroc=0.6887
+[Epoch 010] train_loss=0.4820 train_acc=0.7472 train_f1=0.7094 train_auroc=0.8307 | valid_loss=0.7299 valid_acc=0.6523 valid_f1=0.5387 valid_auroc=0.6857
+[Epoch 011] train_loss=0.4670 train_acc=0.7581 train_f1=0.7268 train_auroc=0.8429 | valid_loss=0.7922 valid_acc=0.6220 valid_f1=0.5636 valid_auroc=0.6795
+[Epoch 012] train_loss=0.4348 train_acc=0.7821 train_f1=0.7578 train_auroc=0.8718 | valid_loss=0.8326 valid_acc=0.6263 valid_f1=0.6059 valid_auroc=0.6857
+[Epoch 013] train_loss=0.4175 train_acc=0.7880 train_f1=0.7685 train_auroc=0.8822 | valid_loss=0.9117 valid_acc=0.6069 valid_f1=0.6270 valid_auroc=0.6839
+[Epoch 014] train_loss=0.3966 train_acc=0.8094 train_f1=0.7908 train_auroc=0.8944 | valid_loss=0.8780 valid_acc=0.6004 valid_f1=0.5688 valid_auroc=0.6551
+[Epoch 015] train_loss=0.3946 train_acc=0.8148 train_f1=0.8008 train_auroc=0.8973 | valid_loss=0.8827 valid_acc=0.6458 valid_f1=0.6058 valid_auroc=0.6894
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                            .venv-m2d  base with mingyujung@jbrserver1 at  22:00:27
+❯ >....
+LORA_TARGET_KEYWORDS=qkv,proj \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=1e-4 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_lora_r8 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=2,409,986 / total=87,902,980 (2.7416%)
+[INFO] encoder: trainable=442,368 / total=85,935,362 (0.5148%)
+[INFO] m2d_inner: trainable=442,368 / total=85,935,362 (0.5148%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "lora",
+  "config": {
+    "method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 24,
+  "targets_preview": [
+    "backbone.blocks.0.attn.qkv",
+    "backbone.blocks.0.attn.proj",
+    "backbone.blocks.1.attn.qkv",
+    "backbone.blocks.1.attn.proj",
+    "backbone.blocks.2.attn.qkv",
+    "backbone.blocks.2.attn.proj",
+    "backbone.blocks.3.attn.qkv",
+    "backbone.blocks.3.attn.proj",
+    "backbone.blocks.4.attn.qkv",
+    "backbone.blocks.4.attn.proj",
+    "backbone.blocks.5.attn.qkv",
+    "backbone.blocks.5.attn.proj",
+    "backbone.blocks.6.attn.qkv",
+    "backbone.blocks.6.attn.proj",
+    "backbone.blocks.7.attn.qkv",
+    "backbone.blocks.7.attn.proj",
+    "backbone.blocks.8.attn.qkv",
+    "backbone.blocks.8.attn.proj",
+    "backbone.blocks.9.attn.qkv",
+    "backbone.blocks.9.attn.proj",
+    "backbone.blocks.10.attn.qkv",
+    "backbone.blocks.10.attn.proj",
+    "backbone.blocks.11.attn.qkv",
+    "backbone.blocks.11.attn.proj"
+  ],
+  "train_module_prefixes": [],
+  "stats": {
+    "total": 85935362,
+    "trainable": 442368,
+    "frozen": 85492994,
+    "trainable_ratio": 0.005147682975955812
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.0.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.1.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.2.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.3.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.4.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.5.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.6.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.7.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.8.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.9.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.10.attn.proj.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.lora_B.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_A.weight
+  - encoder.model.backbone.blocks.11.attn.proj.lora_B.weight
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6609 train_acc=0.5919 train_f1=0.5392 train_auroc=0.6213 | valid_loss=0.6546 valid_acc=0.6371 valid_f1=0.4085 valid_auroc=0.6577
+[INFO] best checkpoint updated: valid_auroc=0.6577
+[Epoch 002] train_loss=0.6023 train_acc=0.6709 train_f1=0.6027 train_auroc=0.7040 | valid_loss=0.6156 valid_acc=0.6566 valid_f1=0.5077 valid_auroc=0.6656
+[INFO] best checkpoint updated: valid_auroc=0.6656
+[Epoch 003] train_loss=0.5971 train_acc=0.6668 train_f1=0.5904 train_auroc=0.7152 | valid_loss=0.6270 valid_acc=0.6587 valid_f1=0.5183 valid_auroc=0.6957
+[INFO] best checkpoint updated: valid_auroc=0.6957
+[Epoch 004] train_loss=0.5771 train_acc=0.6845 train_f1=0.6167 train_auroc=0.7265 | valid_loss=0.6440 valid_acc=0.6695 valid_f1=0.5143 valid_auroc=0.6823
+[Epoch 005] train_loss=0.5634 train_acc=0.6841 train_f1=0.6094 train_auroc=0.7426 | valid_loss=0.6437 valid_acc=0.6436 valid_f1=0.5299 valid_auroc=0.6709
+[Epoch 006] train_loss=0.5449 train_acc=0.7013 train_f1=0.6436 train_auroc=0.7708 | valid_loss=0.6925 valid_acc=0.6739 valid_f1=0.5623 valid_auroc=0.6898
+[Epoch 007] train_loss=0.5249 train_acc=0.7290 train_f1=0.6757 train_auroc=0.7868 | valid_loss=0.7623 valid_acc=0.6285 valid_f1=0.6037 valid_auroc=0.7031
+[INFO] best checkpoint updated: valid_auroc=0.7031
+[Epoch 008] train_loss=0.5208 train_acc=0.7236 train_f1=0.6688 train_auroc=0.7905 | valid_loss=0.7145 valid_acc=0.6328 valid_f1=0.5380 valid_auroc=0.6790
+[Epoch 009] train_loss=0.4868 train_acc=0.7476 train_f1=0.7061 train_auroc=0.8271 | valid_loss=0.7127 valid_acc=0.6523 valid_f1=0.5306 valid_auroc=0.6977
+[Epoch 010] train_loss=0.4781 train_acc=0.7503 train_f1=0.7156 train_auroc=0.8373 | valid_loss=0.7883 valid_acc=0.6263 valid_f1=0.5967 valid_auroc=0.6719
+[Epoch 011] train_loss=0.4511 train_acc=0.7771 train_f1=0.7506 train_auroc=0.8544 | valid_loss=0.8366 valid_acc=0.6415 valid_f1=0.5808 valid_auroc=0.6795
+[Epoch 012] train_loss=0.4305 train_acc=0.7880 train_f1=0.7654 train_auroc=0.8719 | valid_loss=0.7802 valid_acc=0.6631 valid_f1=0.5491 valid_auroc=0.6759
+[Epoch 013] train_loss=0.3987 train_acc=0.8048 train_f1=0.7850 train_auroc=0.8939 | valid_loss=0.9617 valid_acc=0.6371 valid_f1=0.4878 valid_auroc=0.6424
+[Epoch 014] train_loss=0.3821 train_acc=0.8107 train_f1=0.7912 train_auroc=0.9018 | valid_loss=0.9221 valid_acc=0.6177 valid_f1=0.5950 valid_auroc=0.6623
+[Epoch 015] train_loss=0.3665 train_acc=0.8307 train_f1=0.8163 train_auroc=0.9124 | valid_loss=0.9736 valid_acc=0.5983 valid_f1=0.5939 valid_auroc=0.6599
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                             took  8m 45s  .venv-m2d  base with mingyujung@jbrserver1 at  22:09:19
+❯ >....
+    "outputs/circor_outcome_m2d_lora_r4",
+    "outputs/circor_outcome_m2d_lora_r8",
+]
+
+for d in run_dirs:
+    path = Path(d) / "history.json"
+    if not path.exists():
+        print(f"{d}: missing history.json")
+        continue
+
+    hist = json.loads(path.read_text())
+    best = max(hist, key=lambda x: x["valid_auroc"])
+
+    print(
+        f"{d}: "
+        f"best_epoch={best['epoch']}, "
+        f"valid_auroc={best['valid_auroc']:.4f}, "
+        f"valid_acc={best['valid_acc']:.4f}, "
+        f"valid_f1={best['valid_f1']:.4f}"
+    )
+PY
+outputs/circor_outcome_m2d_none: best_epoch=6, valid_auroc=0.6754, valid_acc=0.6436, valid_f1=0.4828
+outputs/circor_outcome_m2d_norm_elr1e-5: best_epoch=6, valid_auroc=0.6799, valid_acc=0.6609, valid_f1=0.5199
+outputs/circor_outcome_m2d_norm_elr3e-5: best_epoch=3, valid_auroc=0.6817, valid_acc=0.6069, valid_f1=0.6345
+outputs/circor_outcome_m2d_lora_r4: best_epoch=7, valid_auroc=0.7067, valid_acc=0.6544, valid_f1=0.5238
+outputs/circor_outcome_m2d_lora_r8: best_epoch=7, valid_auroc=0.7031, valid_acc=0.6285, valid_f1=0.6037
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                              took  8m 1s  .venv-m2d  base with mingyujung@jbrserver1 at  22:08:10
+❯ CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_norm_elr1e-5 \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "norm",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5935613682092555,
+    "f1": 0.3878787878787879,
+    "confusion_matrix": [
+      [
+        231,
+        28
+      ],
+      [
+        174,
+        64
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5703703703703704,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.6957831325301205,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.6956521739130435,
+        "recall": 0.2689075630252101,
+        "f1-score": 0.3878787878787879,
+        "support": 238.0
+      },
+      "accuracy": 0.5935613682092555,
+      "macro avg": {
+        "precision": 0.6330112721417069,
+        "recall": 0.580399727458551,
+        "f1-score": 0.5418309602044542,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6303644734753124,
+        "recall": 0.5935613682092555,
+        "f1-score": 0.5483359815703275,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6491839979234937
+  },
+  "patient_level": {
+    "accuracy": 0.6223776223776224,
+    "f1": 0.46,
+    "confusion_matrix": [
+      [
+        66,
+        8
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5892857142857143,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.7096774193548387,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7419354838709677,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46,
+        "support": 69.0
+      },
+      "accuracy": 0.6223776223776224,
+      "macro avg": {
+        "precision": 0.665610599078341,
+        "recall": 0.6126126126126126,
+        "f1-score": 0.5848387096774194,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6629418968128645,
+        "recall": 0.6223776223776224,
+        "f1-score": 0.5892036995262802,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6602036819428123
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                              took  8m 1s  .venv-m2d  base with mingyujung@jbrserver1 at  22:08:10
+❯ CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_norm_elr1e-5 \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "norm",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5935613682092555,
+    "f1": 0.3878787878787879,
+    "confusion_matrix": [
+      [
+        231,
+        28
+      ],
+      [
+        174,
+        64
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5703703703703704,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.6957831325301205,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.6956521739130435,
+        "recall": 0.2689075630252101,
+        "f1-score": 0.3878787878787879,
+        "support": 238.0
+      },
+      "accuracy": 0.5935613682092555,
+      "macro avg": {
+        "precision": 0.6330112721417069,
+        "recall": 0.580399727458551,
+        "f1-score": 0.5418309602044542,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6303644734753124,
+        "recall": 0.5935613682092555,
+        "f1-score": 0.5483359815703275,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6491839979234937
+  },
+  "patient_level": {
+    "accuracy": 0.6223776223776224,
+    "f1": 0.46,
+    "confusion_matrix": [
+      [
+        66,
+        8
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5892857142857143,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.7096774193548387,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7419354838709677,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46,
+        "support": 69.0
+      },
+      "accuracy": 0.6223776223776224,
+      "macro avg": {
+        "precision": 0.665610599078341,
+        "recall": 0.6126126126126126,
+        "f1-score": 0.5848387096774194,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6629418968128645,
+        "recall": 0.6223776223776224,
+        "f1-score": 0.5892036995262802,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6602036819428123
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                took  11s  .venv-m2d  base with mingyujung@jbrserver1 at  22:37:42
+❯ CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_lora_r4 \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "lora",
+  "trainable_last_blocks": 1,
+  "lora_rank": 4,
+  "lora_alpha": 8.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.6156941649899397,
+    "f1": 0.4365781710914454,
+    "confusion_matrix": [
+      [
+        232,
+        27
+      ],
+      [
+        164,
+        74
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5858585858585859,
+        "recall": 0.8957528957528957,
+        "f1-score": 0.7083969465648855,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7326732673267327,
+        "recall": 0.31092436974789917,
+        "f1-score": 0.4365781710914454,
+        "support": 238.0
+      },
+      "accuracy": 0.6156941649899397,
+      "macro avg": {
+        "precision": 0.6592659265926593,
+        "recall": 0.6033386327503975,
+        "f1-score": 0.5724875588281655,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6561642079700928,
+        "recall": 0.6156941649899397,
+        "f1-score": 0.5782302090142241,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6366114013172837
+  },
+  "patient_level": {
+    "accuracy": 0.6223776223776224,
+    "f1": 0.46,
+    "confusion_matrix": [
+      [
+        66,
+        8
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5892857142857143,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.7096774193548387,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7419354838709677,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46,
+        "support": 69.0
+      },
+      "accuracy": 0.6223776223776224,
+      "macro avg": {
+        "precision": 0.665610599078341,
+        "recall": 0.6126126126126126,
+        "f1-score": 0.5848387096774194,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6629418968128645,
+        "recall": 0.6223776223776224,
+        "f1-score": 0.5892036995262802,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6578535056795927
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                                took  11s  .venv-m2d  base with mingyujung@jbrserver1 at  22:38:00
+❯ for RUN in \
+  outputs/circor_outcome_m2d_norm_elr1e-5 \
+  outputs/circor_outcome_m2d_lora_r4
+do
+  for AGG in mean max noisy_or
+  do
+    CUDA_VISIBLE_DEVICES=0 \
+    RUN_DIR=$RUN \
+    PATIENT_AGGREGATION=$AGG \
+    bash scripts/eval_circor_outcome_peft.sh
+  done
+done
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "norm",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5935613682092555,
+    "f1": 0.3878787878787879,
+    "confusion_matrix": [
+      [
+        231,
+        28
+      ],
+      [
+        174,
+        64
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5703703703703704,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.6957831325301205,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.6956521739130435,
+        "recall": 0.2689075630252101,
+        "f1-score": 0.3878787878787879,
+        "support": 238.0
+      },
+      "accuracy": 0.5935613682092555,
+      "macro avg": {
+        "precision": 0.6330112721417069,
+        "recall": 0.580399727458551,
+        "f1-score": 0.5418309602044542,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6303644734753124,
+        "recall": 0.5935613682092555,
+        "f1-score": 0.5483359815703275,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6491839979234937
+  },
+  "patient_level": {
+    "accuracy": 0.6223776223776224,
+    "f1": 0.46,
+    "confusion_matrix": [
+      [
+        66,
+        8
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5892857142857143,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.7096774193548387,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7419354838709677,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46,
+        "support": 69.0
+      },
+      "accuracy": 0.6223776223776224,
+      "macro avg": {
+        "precision": 0.665610599078341,
+        "recall": 0.6126126126126126,
+        "f1-score": 0.5848387096774194,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6629418968128645,
+        "recall": 0.6223776223776224,
+        "f1-score": 0.5892036995262802,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6602036819428123
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "norm",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5935613682092555,
+    "f1": 0.3878787878787879,
+    "confusion_matrix": [
+      [
+        231,
+        28
+      ],
+      [
+        174,
+        64
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5703703703703704,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.6957831325301205,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.6956521739130435,
+        "recall": 0.2689075630252101,
+        "f1-score": 0.3878787878787879,
+        "support": 238.0
+      },
+      "accuracy": 0.5935613682092555,
+      "macro avg": {
+        "precision": 0.6330112721417069,
+        "recall": 0.580399727458551,
+        "f1-score": 0.5418309602044542,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6303644734753124,
+        "recall": 0.5935613682092555,
+        "f1-score": 0.5483359815703275,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6491839979234937
+  },
+  "patient_level": {
+    "accuracy": 0.5664335664335665,
+    "f1": 0.45614035087719296,
+    "confusion_matrix": [
+      [
+        55,
+        19
+      ],
+      [
+        43,
+        26
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5612244897959183,
+        "recall": 0.7432432432432432,
+        "f1-score": 0.6395348837209303,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.5777777777777777,
+        "recall": 0.37681159420289856,
+        "f1-score": 0.45614035087719296,
+        "support": 69.0
+      },
+      "accuracy": 0.5664335664335665,
+      "macro avg": {
+        "precision": 0.5695011337868481,
+        "recall": 0.5600274187230709,
+        "f1-score": 0.5478376172990616,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.5692117406403121,
+        "recall": 0.5664335664335665,
+        "f1-score": 0.5510438154257004,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6335683509596552
+  },
+  "patient_aggregation": "max",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "norm",
+  "trainable_last_blocks": 1,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.5935613682092555,
+    "f1": 0.3878787878787879,
+    "confusion_matrix": [
+      [
+        231,
+        28
+      ],
+      [
+        174,
+        64
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5703703703703704,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.6957831325301205,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.6956521739130435,
+        "recall": 0.2689075630252101,
+        "f1-score": 0.3878787878787879,
+        "support": 238.0
+      },
+      "accuracy": 0.5935613682092555,
+      "macro avg": {
+        "precision": 0.6330112721417069,
+        "recall": 0.580399727458551,
+        "f1-score": 0.5418309602044542,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6303644734753124,
+        "recall": 0.5935613682092555,
+        "f1-score": 0.5483359815703275,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6491839979234937
+  },
+  "patient_level": {
+    "accuracy": 0.4825174825174825,
+    "f1": 0.6372549019607843,
+    "confusion_matrix": [
+      [
+        4,
+        70
+      ],
+      [
+        4,
+        65
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5,
+        "recall": 0.05405405405405406,
+        "f1-score": 0.0975609756097561,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.48148148148148145,
+        "recall": 0.9420289855072463,
+        "f1-score": 0.6372549019607843,
+        "support": 69.0
+      },
+      "accuracy": 0.4825174825174825,
+      "macro avg": {
+        "precision": 0.4907407407407407,
+        "recall": 0.4980415197806502,
+        "f1-score": 0.36740793878527017,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.4910644910644911,
+        "recall": 0.4825174825174825,
+        "f1-score": 0.3579727302826298,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6515863689776733
+  },
+  "patient_aggregation": "noisy_or",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "norm",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "lora",
+  "trainable_last_blocks": 1,
+  "lora_rank": 4,
+  "lora_alpha": 8.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.6156941649899397,
+    "f1": 0.4365781710914454,
+    "confusion_matrix": [
+      [
+        232,
+        27
+      ],
+      [
+        164,
+        74
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5858585858585859,
+        "recall": 0.8957528957528957,
+        "f1-score": 0.7083969465648855,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7326732673267327,
+        "recall": 0.31092436974789917,
+        "f1-score": 0.4365781710914454,
+        "support": 238.0
+      },
+      "accuracy": 0.6156941649899397,
+      "macro avg": {
+        "precision": 0.6592659265926593,
+        "recall": 0.6033386327503975,
+        "f1-score": 0.5724875588281655,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6561642079700928,
+        "recall": 0.6156941649899397,
+        "f1-score": 0.5782302090142241,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6366114013172837
+  },
+  "patient_level": {
+    "accuracy": 0.6223776223776224,
+    "f1": 0.46,
+    "confusion_matrix": [
+      [
+        66,
+        8
+      ],
+      [
+        46,
+        23
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5892857142857143,
+        "recall": 0.8918918918918919,
+        "f1-score": 0.7096774193548387,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.7419354838709677,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.46,
+        "support": 69.0
+      },
+      "accuracy": 0.6223776223776224,
+      "macro avg": {
+        "precision": 0.665610599078341,
+        "recall": 0.6126126126126126,
+        "f1-score": 0.5848387096774194,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6629418968128645,
+        "recall": 0.6223776223776224,
+        "f1-score": 0.5892036995262802,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6578535056795927
+  },
+  "patient_aggregation": "mean",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "lora",
+  "trainable_last_blocks": 1,
+  "lora_rank": 4,
+  "lora_alpha": 8.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.6156941649899397,
+    "f1": 0.4365781710914454,
+    "confusion_matrix": [
+      [
+        232,
+        27
+      ],
+      [
+        164,
+        74
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5858585858585859,
+        "recall": 0.8957528957528957,
+        "f1-score": 0.7083969465648855,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7326732673267327,
+        "recall": 0.31092436974789917,
+        "f1-score": 0.4365781710914454,
+        "support": 238.0
+      },
+      "accuracy": 0.6156941649899397,
+      "macro avg": {
+        "precision": 0.6592659265926593,
+        "recall": 0.6033386327503975,
+        "f1-score": 0.5724875588281655,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6561642079700928,
+        "recall": 0.6156941649899397,
+        "f1-score": 0.5782302090142241,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6366114013172837
+  },
+  "patient_level": {
+    "accuracy": 0.6433566433566433,
+    "f1": 0.5785123966942148,
+    "confusion_matrix": [
+      [
+        57,
+        17
+      ],
+      [
+        34,
+        35
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.6263736263736264,
+        "recall": 0.7702702702702703,
+        "f1-score": 0.6909090909090909,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.6730769230769231,
+        "recall": 0.5072463768115942,
+        "f1-score": 0.5785123966942148,
+        "support": 69.0
+      },
+      "accuracy": 0.6433566433566433,
+      "macro avg": {
+        "precision": 0.6497252747252747,
+        "recall": 0.6387583235409322,
+        "f1-score": 0.6347107438016528,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.6489087835241681,
+        "recall": 0.6433566433566433,
+        "f1-score": 0.6366757209732417,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6455150802976889
+  },
+  "patient_aggregation": "max",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+[INFO] patch already applied
+[INFO] device = cuda
+[INFO] resolved model_config:
+{
+  "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+  "num_classes": 2,
+  "head_hidden_dim": 512,
+  "peft_method": "lora",
+  "trainable_last_blocks": 1,
+  "lora_rank": 4,
+  "lora_alpha": 8.0,
+  "lora_dropout": 0.05,
+  "lora_target_keywords": "qkv,proj",
+  "keep_frozen_modules_eval": true
+}
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+{
+  "recording_level": {
+    "accuracy": 0.6156941649899397,
+    "f1": 0.4365781710914454,
+    "confusion_matrix": [
+      [
+        232,
+        27
+      ],
+      [
+        164,
+        74
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5858585858585859,
+        "recall": 0.8957528957528957,
+        "f1-score": 0.7083969465648855,
+        "support": 259.0
+      },
+      "1": {
+        "precision": 0.7326732673267327,
+        "recall": 0.31092436974789917,
+        "f1-score": 0.4365781710914454,
+        "support": 238.0
+      },
+      "accuracy": 0.6156941649899397,
+      "macro avg": {
+        "precision": 0.6592659265926593,
+        "recall": 0.6033386327503975,
+        "f1-score": 0.5724875588281655,
+        "support": 497.0
+      },
+      "weighted avg": {
+        "precision": 0.6561642079700928,
+        "recall": 0.6156941649899397,
+        "f1-score": 0.5782302090142241,
+        "support": 497.0
+      }
+    },
+    "auroc": 0.6366114013172837
+  },
+  "patient_level": {
+    "accuracy": 0.4825174825174825,
+    "f1": 0.6407766990291263,
+    "confusion_matrix": [
+      [
+        3,
+        71
+      ],
+      [
+        3,
+        66
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.5,
+        "recall": 0.04054054054054054,
+        "f1-score": 0.075,
+        "support": 74.0
+      },
+      "1": {
+        "precision": 0.48175182481751827,
+        "recall": 0.9565217391304348,
+        "f1-score": 0.6407766990291263,
+        "support": 69.0
+      },
+      "accuracy": 0.4825174825174825,
+      "macro avg": {
+        "precision": 0.49087591240875916,
+        "recall": 0.4985311398354877,
+        "f1-score": 0.3578883495145631,
+        "support": 143.0
+      },
+      "weighted avg": {
+        "precision": 0.49119493645041096,
+        "recall": 0.4825174825174825,
+        "f1-score": 0.3479971484825854,
+        "support": 143.0
+      }
+    },
+    "auroc": 0.6406188797493145
+  },
+  "patient_aggregation": "noisy_or",
+  "model_config": {
+    "m2d_weight_path": "weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth",
+    "num_classes": 2,
+    "head_hidden_dim": 512,
+    "peft_method": "lora",
+    "trainable_last_blocks": 1,
+    "lora_rank": 4,
+    "lora_alpha": 8.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj",
+    "keep_frozen_modules_eval": true
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ~/private/ajou_grad/hs on   main !4 ?6                                                              took  1m 5s  .venv-m2d  base with mingyujung@jbrserver1 at  22:43:09
+❯ CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=last_blocks \
+TRAINABLE_LAST_BLOCKS=1 \
+EPOCHS=10 \
+BATCH_SIZE=2 \
+LR=1e-4 \
+ENCODER_LR=1e-6 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_last1_elr1e-6 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=9,055,490 / total=87,460,612 (10.3538%)
+[INFO] encoder: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] m2d_inner: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "last_blocks",
+  "config": {
+    "method": "last_blocks",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 1,
+  "targets_preview": [
+    "backbone.blocks.11"
+  ],
+  "train_module_prefixes": [
+    "backbone.blocks.11"
+  ],
+  "stats": {
+    "total": 85492994,
+    "trainable": 7087872,
+    "frozen": 78405122,
+    "trainable_ratio": 0.08290588115325567
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.11.norm1.weight
+  - encoder.model.backbone.blocks.11.norm1.bias
+  - encoder.model.backbone.blocks.11.attn.qkv.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.bias
+  - encoder.model.backbone.blocks.11.attn.proj.weight
+  - encoder.model.backbone.blocks.11.attn.proj.bias
+  - encoder.model.backbone.blocks.11.norm2.weight
+  - encoder.model.backbone.blocks.11.norm2.bias
+  - encoder.model.backbone.blocks.11.mlp.fc1.weight
+  - encoder.model.backbone.blocks.11.mlp.fc1.bias
+  - encoder.model.backbone.blocks.11.mlp.fc2.weight
+  - encoder.model.backbone.blocks.11.mlp.fc2.bias
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6725 train_acc=0.5847 train_f1=0.5242 train_auroc=0.6054 | valid_loss=0.6501 valid_acc=0.6177 valid_f1=0.4120 valid_auroc=0.6384
+[INFO] best checkpoint updated: valid_auroc=0.6384
+[Epoch 002] train_loss=0.6309 train_acc=0.6282 train_f1=0.5613 train_auroc=0.6668 | valid_loss=0.6558 valid_acc=0.6263 valid_f1=0.5099 valid_auroc=0.6411
+[INFO] best checkpoint updated: valid_auroc=0.6411
+[Epoch 003] train_loss=0.6191 train_acc=0.6323 train_f1=0.5645 train_auroc=0.6789 | valid_loss=0.6719 valid_acc=0.6048 valid_f1=0.5812 valid_auroc=0.6669
+[INFO] best checkpoint updated: valid_auroc=0.6669
+[Epoch 004] train_loss=0.6128 train_acc=0.6355 train_f1=0.5731 train_auroc=0.6915 | valid_loss=0.6479 valid_acc=0.6199 valid_f1=0.5056 valid_auroc=0.6636
+[Epoch 005] train_loss=0.6044 train_acc=0.6310 train_f1=0.5593 train_auroc=0.6953 | valid_loss=0.6629 valid_acc=0.6285 valid_f1=0.4971 valid_auroc=0.6495
+[Epoch 006] train_loss=0.5942 train_acc=0.6568 train_f1=0.6058 train_auroc=0.7160 | valid_loss=0.6646 valid_acc=0.6220 valid_f1=0.4928 valid_auroc=0.6627
+[Epoch 007] train_loss=0.5963 train_acc=0.6614 train_f1=0.6074 train_auroc=0.7163 | valid_loss=0.6956 valid_acc=0.5788 valid_f1=0.6184 valid_auroc=0.6604
+[Epoch 008] train_loss=0.5912 train_acc=0.6627 train_f1=0.6128 train_auroc=0.7219 | valid_loss=0.6723 valid_acc=0.6328 valid_f1=0.4753 valid_auroc=0.6563
+[Epoch 009] train_loss=0.5767 train_acc=0.6750 train_f1=0.6332 train_auroc=0.7426 | valid_loss=0.6729 valid_acc=0.6263 valid_f1=0.6023 valid_auroc=0.6696
+[INFO] best checkpoint updated: valid_auroc=0.6696
+[Epoch 010] train_loss=0.5754 train_acc=0.6736 train_f1=0.6307 train_auroc=0.7399 | valid_loss=0.6525 valid_acc=0.6458 valid_f1=0.4843 valid_auroc=0.6723
+[INFO] best checkpoint updated: valid_auroc=0.6723
+
+------------------------------------------
+  ~/private/ajou_grad/hs on   main !4 ?6                                                             took  3m 56s  .venv-m2d  base with mingyujung@jbrserver1 at  22:48:29
+❯ CUDA_VISIBLE_DEVICES=1 \
+PEFT_METHOD=last_blocks \
+TRAINABLE_LAST_BLOCKS=1 \
+EPOCHS=10 \
+BATCH_SIZE=2 \
+LR=1e-4 \
+ENCODER_LR=3e-6 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_last1_elr3e-6 \
+bash scripts/train_circor_outcome_peft.sh
+[INFO] patch already applied
+[INFO] device = cuda
+ using 151 parameters, while dropped 9 out of 160 parameters from weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/weights_ep69it3124-0.48494.pth
+ (included audio_proj params: []
+ (included text_proj params: []
+ (dropped: ['module.ar.runtime.to_spec.mel_basis', 'module.ar.runtime.to_spec.stft.wsin', 'module.ar.runtime.to_spec.stft.wcos', 'module.ar.runtime.to_spec.stft.window_mask', 'module.head.norm.running_mean'] ...)
+<All keys matched successfully>
+[INFO] whole_model: trainable=9,055,490 / total=87,460,612 (10.3538%)
+[INFO] encoder: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] m2d_inner: trainable=7,087,872 / total=85,492,994 (8.2906%)
+[INFO] head: trainable=1,967,618 / total=1,967,618 (100.0000%)
+[INFO] PEFT report:
+{
+  "method": "last_blocks",
+  "config": {
+    "method": "last_blocks",
+    "trainable_last_blocks": 1,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "lora_dropout": 0.05,
+    "lora_target_keywords": "qkv,proj"
+  },
+  "num_targets": 1,
+  "targets_preview": [
+    "backbone.blocks.11"
+  ],
+  "train_module_prefixes": [
+    "backbone.blocks.11"
+  ],
+  "stats": {
+    "total": 85492994,
+    "trainable": 7087872,
+    "frozen": 78405122,
+    "trainable_ratio": 0.08290588115325567
+  }
+}
+[INFO] trainable parameter names preview:
+  - encoder.model.backbone.blocks.11.norm1.weight
+  - encoder.model.backbone.blocks.11.norm1.bias
+  - encoder.model.backbone.blocks.11.attn.qkv.weight
+  - encoder.model.backbone.blocks.11.attn.qkv.bias
+  - encoder.model.backbone.blocks.11.attn.proj.weight
+  - encoder.model.backbone.blocks.11.attn.proj.bias
+  - encoder.model.backbone.blocks.11.norm2.weight
+  - encoder.model.backbone.blocks.11.norm2.bias
+  - encoder.model.backbone.blocks.11.mlp.fc1.weight
+  - encoder.model.backbone.blocks.11.mlp.fc1.bias
+  - encoder.model.backbone.blocks.11.mlp.fc2.weight
+  - encoder.model.backbone.blocks.11.mlp.fc2.bias
+  - head.net.0.weight
+  - head.net.0.bias
+  - head.net.3.weight
+  - head.net.3.bias
+[Epoch 001] train_loss=0.6710 train_acc=0.5851 train_f1=0.5274 train_auroc=0.6069 | valid_loss=0.6495 valid_acc=0.6177 valid_f1=0.4197 valid_auroc=0.6375
+[INFO] best checkpoint updated: valid_auroc=0.6375
+[Epoch 002] train_loss=0.6277 train_acc=0.6355 train_f1=0.5648 train_auroc=0.6690 | valid_loss=0.6548 valid_acc=0.6242 valid_f1=0.5000 valid_auroc=0.6461
+[INFO] best checkpoint updated: valid_auroc=0.6461
+[Epoch 003] train_loss=0.6155 train_acc=0.6396 train_f1=0.5685 train_auroc=0.6827 | valid_loss=0.6878 valid_acc=0.6112 valid_f1=0.6104 valid_auroc=0.6733
+[INFO] best checkpoint updated: valid_auroc=0.6733
+[Epoch 004] train_loss=0.6073 train_acc=0.6432 train_f1=0.5850 train_auroc=0.6997 | valid_loss=0.6610 valid_acc=0.6134 valid_f1=0.5175 valid_auroc=0.6632
+[Epoch 005] train_loss=0.5982 train_acc=0.6428 train_f1=0.5716 train_auroc=0.7030 | valid_loss=0.6686 valid_acc=0.6220 valid_f1=0.4868 valid_auroc=0.6554
+[Epoch 006] train_loss=0.5846 train_acc=0.6596 train_f1=0.6040 train_auroc=0.7284 | valid_loss=0.6727 valid_acc=0.6350 valid_f1=0.5130 valid_auroc=0.6639
+[Epoch 007] train_loss=0.5810 train_acc=0.6718 train_f1=0.6197 train_auroc=0.7329 | valid_loss=0.7101 valid_acc=0.5724 valid_f1=0.6024 valid_auroc=0.6640
+[Epoch 008] train_loss=0.5724 train_acc=0.6827 train_f1=0.6304 train_auroc=0.7434 | valid_loss=0.6773 valid_acc=0.6285 valid_f1=0.4911 valid_auroc=0.6630
+[Epoch 009] train_loss=0.5603 train_acc=0.6882 train_f1=0.6461 train_auroc=0.7594 | valid_loss=0.6987 valid_acc=0.6263 valid_f1=0.6214 valid_auroc=0.6741
+[INFO] best checkpoint updated: valid_auroc=0.6741
+[Epoch 010] train_loss=0.5536 train_acc=0.6968 train_f1=0.6542 train_auroc=0.7642 | valid_loss=0.6547 valid_acc=0.6393 valid_f1=0.4798 valid_auroc=0.6858
+[INFO] best checkpoint updated: valid_auroc=0.6858
+
+

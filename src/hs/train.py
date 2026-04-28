@@ -11,28 +11,13 @@ from torch.utils.data import DataLoader
 
 from hs.data.circor import CirCorOutcomeDataset
 from hs.data.preprocess import collate_circor_batch
-from hs.models.classifier import ClassificationHead
-from hs.models.m2d_wrapper import M2DWrapper
+from hs.models.outcome import OutcomeModel
+from hs.models.peft import (
+    format_parameter_stats,
+    parameter_stats,
+    trainable_parameter_names,
+)
 from hs.utils import ensure_dir, get_device, set_seed
-
-
-class OutcomeModel(nn.Module):
-    def __init__(self, m2d_weight_path: str, num_classes: int = 2) -> None:
-        super().__init__()
-        self.encoder = M2DWrapper(
-            weight_path=m2d_weight_path,
-            freeze_encoder=True,
-        )
-        self.head = ClassificationHead(
-            in_dim=self.encoder.out_dim,
-            hidden_dim=512,
-            num_classes=num_classes,
-        )
-
-    def forward(self, audio: torch.Tensor) -> torch.Tensor:
-        feats = self.encoder(audio)
-        logits = self.head(feats)
-        return logits
 
 
 def build_loader(
@@ -90,9 +75,11 @@ def train_one_epoch(model, loader, optimizer, criterion, device):
         audio = batch["audio"].to(device)
         labels = batch["label"].to(device)
 
-        optimizer.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
+
         logits = model(audio)
         loss = criterion(logits, labels)
+
         loss.backward()
         optimizer.step()
 
@@ -145,30 +132,115 @@ def evaluate(model, loader, criterion, device):
     return metrics
 
 
-def save_checkpoint(model, optimizer, epoch, best_valid_auroc, path):
+def build_optimizer(model: OutcomeModel, lr: float, encoder_lr: float | None, weight_decay: float):
+    head_params = [
+        p for p in model.head.parameters()
+        if p.requires_grad
+    ]
+
+    encoder_params = [
+        p for p in model.encoder.parameters()
+        if p.requires_grad
+    ]
+
+    param_groups = []
+
+    if head_params:
+        param_groups.append(
+            {
+                "params": head_params,
+                "lr": lr,
+                "weight_decay": weight_decay,
+                "name": "head",
+            }
+        )
+
+    if encoder_params:
+        param_groups.append(
+            {
+                "params": encoder_params,
+                "lr": encoder_lr if encoder_lr is not None else lr,
+                "weight_decay": weight_decay,
+                "name": "encoder_peft",
+            }
+        )
+
+    if not param_groups:
+        raise RuntimeError("No trainable parameters found.")
+
+    return torch.optim.AdamW(param_groups)
+
+
+def save_checkpoint(
+    model,
+    optimizer,
+    epoch,
+    best_valid_auroc,
+    path,
+    args,
+):
     torch.save(
         {
             "model": model.state_dict(),
             "optimizer": optimizer.state_dict(),
             "epoch": epoch,
             "best_valid_auroc": best_valid_auroc,
+            "model_config": model.get_config(),
+            "args": vars(args),
         },
         path,
     )
 
 
+def print_model_trainability(model: OutcomeModel) -> None:
+    print("[INFO]", format_parameter_stats("whole_model", model))
+    print("[INFO]", format_parameter_stats("encoder", model.encoder))
+    print("[INFO]", format_parameter_stats("m2d_inner", model.encoder.model))
+    print("[INFO]", format_parameter_stats("head", model.head))
+
+    print("[INFO] PEFT report:")
+    print(json.dumps(model.encoder.peft_report, indent=2, ensure_ascii=False))
+
+    names = trainable_parameter_names(model, max_items=80)
+    print("[INFO] trainable parameter names preview:")
+    for name in names:
+        print(f"  - {name}")
+
+
 def main():
     parser = argparse.ArgumentParser()
+
     parser.add_argument("--train_manifest", type=str, required=True)
     parser.add_argument("--valid_manifest", type=str, required=True)
     parser.add_argument("--m2d_weight_path", type=str, required=True)
     parser.add_argument("--output_dir", type=str, default="outputs/circor_outcome_m2d")
+
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument("--lr", type=float, default=1e-4)
+    parser.add_argument("--encoder_lr", type=float, default=None)
+    parser.add_argument("--weight_decay", type=float, default=1e-4)
     parser.add_argument("--max_sec", type=float, default=10.0)
     parser.add_argument("--seed", type=int, default=42)
+
+    parser.add_argument(
+        "--peft_method",
+        type=str,
+        default="none",
+        choices=["none", "norm", "last_blocks", "lora"],
+    )
+    parser.add_argument("--trainable_last_blocks", type=int, default=1)
+    parser.add_argument("--lora_rank", type=int, default=8)
+    parser.add_argument("--lora_alpha", type=float, default=16.0)
+    parser.add_argument("--lora_dropout", type=float, default=0.05)
+    parser.add_argument("--lora_target_keywords", type=str, default="qkv,proj")
+    parser.add_argument(
+        "--keep_frozen_modules_eval",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+
     args = parser.parse_args()
 
     set_seed(args.seed)
@@ -195,18 +267,31 @@ def main():
     model = OutcomeModel(
         m2d_weight_path=args.m2d_weight_path,
         num_classes=2,
+        head_hidden_dim=512,
+        peft_method=args.peft_method,
+        trainable_last_blocks=args.trainable_last_blocks,
+        lora_rank=args.lora_rank,
+        lora_alpha=args.lora_alpha,
+        lora_dropout=args.lora_dropout,
+        lora_target_keywords=args.lora_target_keywords,
+        keep_frozen_modules_eval=args.keep_frozen_modules_eval,
     ).to(device)
 
+    print_model_trainability(model)
+
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(model.head.parameters(), lr=args.lr)
+    optimizer = build_optimizer(
+        model=model,
+        lr=args.lr,
+        encoder_lr=args.encoder_lr,
+        weight_decay=args.weight_decay,
+    )
 
     best_valid_auroc = float("-inf")
     history = []
 
     for epoch in range(1, args.epochs + 1):
-        train_metrics = train_one_epoch(
-            model, train_loader, optimizer, criterion, device
-        )
+        train_metrics = train_one_epoch(model, train_loader, optimizer, criterion, device)
         valid_metrics = evaluate(model, valid_loader, criterion, device)
 
         row = {
@@ -243,6 +328,7 @@ def main():
             epoch=epoch,
             best_valid_auroc=best_valid_auroc,
             path=Path(args.output_dir) / "last.pt",
+            args=args,
         )
 
         if valid_metrics["auroc"] > best_valid_auroc:
@@ -253,6 +339,7 @@ def main():
                 epoch=epoch,
                 best_valid_auroc=best_valid_auroc,
                 path=Path(args.output_dir) / "best.pt",
+                args=args,
             )
             print(f"[INFO] best checkpoint updated: valid_auroc={best_valid_auroc:.4f}")
 
