@@ -25,5 +25,8 @@ export CIRCOR_ROOT=~/private/ajou_grad/dataset/physionet.org
 python scripts/prepare_circor.py --circor_root $CIRCOR_ROOT --out_dir artifacts/circor
 ```
 
-
+## Team Member
+Mark Zuckerberg
+meansash
+Jensen Huang
 
