@@ -2,7 +2,7 @@ Metadata-Version: 2.4
 Name: hs
 Version: 0.1.0
 Summary: Heart sound classification project for Ajou graduate ASR course
-Requires-Python: >=3.11
+Requires-Python: <3.13,>=3.11
 Description-Content-Type: text/markdown
 Requires-Dist: torch==2.5.1
 Requires-Dist: torchaudio==2.5.1
@@ -15,6 +15,9 @@ Requires-Dist: tqdm
 Requires-Dist: librosa
 Requires-Dist: soundfile
 Requires-Dist: scipy
+Requires-Dist: timm==0.4.5
+Requires-Dist: einops
+Requires-Dist: nnAudio
 Requires-Dist: jupyter
 Requires-Dist: ipykernel
 
@@ -22,23 +25,177 @@ Requires-Dist: ipykernel
 
 Heart sound classification project for Ajou graduate ASR course.
 
-## Current task
-- CirCor outcome classification (Normal vs Abnormal)
-- M2D-based baseline
+## Current Task
 
-## Setup
+- CirCor outcome classification: Normal vs Abnormal
+- M2D-based baseline and PEFT experiments
+
+## Environment
+
+This project pins:
+
+- `torch==2.5.1`
+- `torchaudio==2.5.1`
+- `torchvision==0.20.1`
+
+Use Python 3.11 or 3.12. Do not use Python 3.13: the pinned
+`torchaudio==2.5.1` package does not provide a Python 3.13 wheel.
+
+From a clean clone:
+
 ```bash
-uv venv
-source .venv/bin/activate
-uv sync
+git submodule update --init --recursive
+uv venv --python 3.11 .venv-m2d
+source .venv-m2d/bin/activate
+uv sync --active
+python scripts/patch_m2d_portable.py
+```
+
+The train/eval shell scripts also activate `.venv-m2d` and apply the M2D patch
+before running.
+
+## M2D Checkpoint
+
+Place the M2D-AS encoder-only checkpoint under `weights/m2d`.
+
+Expected layout:
+
+```text
+weights/m2d/m2d_as_vit_base-80x1001p16x16-240213_AS-FT_enconly/
+`-- weights_ep69it3124-0.48494.pth
+```
+
+If you already have the original workspace, reuse its local checkpoint:
+
+```bash
+mkdir -p weights/m2d
+cp -a ~/private/ajou_grad/hs/weights/m2d/. weights/m2d/
+```
+
+Check that M2D imports, loads the checkpoint, and runs a forward pass:
+
+```bash
+python scripts/check_m2d_portable.py
+```
+
+Expected check output includes:
+
+```text
+<All keys matched successfully>
+[INFO] frame-level shape = (2, 62, 3840)
+[INFO] clip-level shape  = (2, 3840)
 ```
 
 ## Data
 
-Set:
+Prepare CirCor manifests:
+
 ```bash
 export CIRCOR_ROOT=~/private/ajou_grad/dataset/physionet.org
-python scripts/prepare_circor.py --circor_root $CIRCOR_ROOT --out_dir artifacts/circor
+python scripts/prepare_circor.py --circor_root "$CIRCOR_ROOT" --out_dir artifacts/circor
 ```
 
+The train/eval scripts expect:
 
+- `artifacts/circor/records_train.json`
+- `artifacts/circor/records_valid.json`
+- `artifacts/circor/records_test.json`
+
+## Train
+
+Baseline with frozen M2D encoder and trainable classifier head:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=none \
+OUTPUT_DIR=outputs/circor_outcome_m2d_none \
+bash scripts/train_circor_outcome_peft.sh
+```
+
+Norm-only PEFT:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=norm \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=1e-5 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_norm_elr1e-5 \
+bash scripts/train_circor_outcome_peft.sh
+```
+
+LoRA PEFT:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=lora \
+LORA_RANK=4 \
+LORA_ALPHA=8.0 \
+LORA_DROPOUT=0.05 \
+LORA_TARGET_KEYWORDS=qkv,proj \
+EPOCHS=15 \
+BATCH_SIZE=4 \
+LR=1e-4 \
+ENCODER_LR=1e-4 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_lora_r4 \
+bash scripts/train_circor_outcome_peft.sh
+```
+
+Last-block PEFT:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+PEFT_METHOD=last_blocks \
+TRAINABLE_LAST_BLOCKS=1 \
+EPOCHS=10 \
+BATCH_SIZE=2 \
+LR=1e-4 \
+ENCODER_LR=1e-6 \
+WEIGHT_DECAY=1e-4 \
+OUTPUT_DIR=outputs/circor_outcome_m2d_last1_elr1e-6 \
+bash scripts/train_circor_outcome_peft.sh
+```
+
+## Eval
+
+Evaluate a run with patient-level mean aggregation:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+RUN_DIR=outputs/circor_outcome_m2d_lora_r4 \
+PATIENT_AGGREGATION=mean \
+bash scripts/eval_circor_outcome_peft.sh
+```
+
+Available patient aggregations used in the logs:
+
+- `mean`
+- `max`
+- `noisy_or`
+
+Evaluate several aggregations:
+
+```bash
+for AGG in mean max noisy_or
+do
+  CUDA_VISIBLE_DEVICES=0 \
+  RUN_DIR=outputs/circor_outcome_m2d_lora_r4 \
+  PATIENT_AGGREGATION=$AGG \
+  bash scripts/eval_circor_outcome_peft.sh
+done
+```
+
+## Logged Results
+
+`outputs.txt` contains the captured train/eval logs from the original
+workspace. A command-by-command result summary is in
+[md/outputs_summary.md](md/outputs_summary.md).
+
+## Team Member
+
+Mark Zuckerberg
+meansash
+Jensen Huang
